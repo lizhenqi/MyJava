@@ -1,3 +1,3 @@
 ﻿# MyJava
 李振起Java学习！
-![测试]("../img/1.jpg");
+![测试]("http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E7%89%87&step_word=&pn=48&spn=0&di=14083722950&pi=&rn=1&tn=baiduimagedetail&is=&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2439778282%2C1268990066&os=1730883140%2C4259986135&simid=3594491525%2C396565657&adpicid=0&ln=1000&fr=&fmq=1465473771932_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fn.7k7kimg.cn%2F2014%2F1209%2F1418109581623.gif&fromurl=ippr_z2C%24qAzdH3FAzdH3Fgjof_z%26e3B0h0h_z%26e3Bv54AzdH3F4-gjofAzdH3Fmbb8la&gsm=0&rpstart=0&rpnum=0");
