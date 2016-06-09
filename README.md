@@ -1,3 +1,3 @@
 ﻿# MyJava
 李振起Java学习！
-![](http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1307/30/c0/23936021_1375171329118_800x600.jpg)
+![风景](http://ww4.sinaimg.cn/mw690/a5695200gw1f4k8go58jxj20b50gotas.jpg)
