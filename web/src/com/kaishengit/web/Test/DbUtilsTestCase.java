@@ -27,11 +27,7 @@ public class DbUtilsTestCase {
     } catch (SQLException e) {
         e.printStackTrace();
     }finally {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       closeConnection(connection);
     }
 }
 @Test
@@ -45,11 +41,7 @@ public class DbUtilsTestCase {
     } catch (SQLException e) {
         e.printStackTrace();
     }finally {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       closeConnection(connection);
     }
 }
 @Test
@@ -63,11 +55,7 @@ public class DbUtilsTestCase {
     } catch (SQLException e) {
         e.printStackTrace();
     }finally {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       closeConnection(connection);
     }
 }
 @Test
@@ -82,11 +70,7 @@ public class DbUtilsTestCase {
     } catch (SQLException e) {
         e.printStackTrace();
     }finally {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       closeConnection(connection);
     }
 }
     @Test
@@ -104,11 +88,7 @@ public class DbUtilsTestCase {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+           closeConnection(connection);
         }
     }
     @Test
@@ -125,11 +105,7 @@ public class DbUtilsTestCase {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+           closeConnection(connection);
         }
     }
     @Test
@@ -147,6 +123,8 @@ public class DbUtilsTestCase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            closeConnection(connection);
         }
     }
 @Test
@@ -161,6 +139,8 @@ public class DbUtilsTestCase {
         System.out.println(msg);
     } catch (SQLException e) {
         e.printStackTrace();
+    }finally {
+        closeConnection(connection);
     }
 }
     @Test
@@ -175,10 +155,17 @@ public class DbUtilsTestCase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+           closeConnection(connection);
         }
     }
-
-
+    public static void closeConnection(Connection connection){
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
