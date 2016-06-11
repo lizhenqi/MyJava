@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class UserDaoTestCase {
 
+
+
+    //第二次测试(自测)
     private UserDao userDao=new UserDao();
     @Test
     public void testUserInsert(){
@@ -25,7 +28,8 @@ public class UserDaoTestCase {
     @Test
     public void testUserDelete(){
         userDao.testDelete(31);
-    }@Test
+    }
+    @Test
     public void testUsermodify(){
         User user=new User("施耐庵","俺乃是","测试3");
         userDao.testModify(user,36);
@@ -57,7 +61,7 @@ public class UserDaoTestCase {
 
 
 
-//第一次测试
+//第一次测试(课堂)
 //    private UserDao userDao=new UserDao();
 //    @Test
 //    public void testUserInsert(){

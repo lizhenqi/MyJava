@@ -14,6 +14,10 @@ import java.util.List;
  * Created by Administrator on 2016/6/10.
  */
 public class Dbhelp {
+
+
+
+    //第二次测试(自测)
     public static void userUpdate(String sql,Object...params){
         Connection connection=ConnectionManager.getConnection();
         QueryRunner queryRunner=new QueryRunner();
@@ -45,7 +49,7 @@ public class Dbhelp {
 
 
 
-    //第一次测试
+    //第一次测试(课堂)
 //    public static void userUpdate(String sql,Object...params){
 //        QueryRunner queryRunner=new QueryRunner();
 //        Connection connection= ConnectionManager.getConnection();

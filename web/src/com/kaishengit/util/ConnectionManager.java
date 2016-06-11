@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionManager {
+
+
+    //第二次测试(自测)
     private static BasicDataSource dataSource=new BasicDataSource();
     static {
         Properties pro=new Properties();
@@ -64,7 +67,7 @@ public class ConnectionManager {
 
 
 
-    //第一次测试
+    //第一次测试(课堂)
 //    private static BasicDataSource dataSource=new BasicDataSource();
 //    static {
 //        Properties proper=new Properties();

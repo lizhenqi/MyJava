@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 public class DbUtilsTestCase {
+
+
+
+
+    //第二次测试(自测)
     @Test
     public void testConnection() {
         Connection connection = ConnectionManager.getConnection();
@@ -81,7 +86,7 @@ public class DbUtilsTestCase {
         String sql = "select *from t_user";
         QueryRunner queryRunner = new QueryRunner();
         try {
-            List<User> userList = queryRunner.query(connection, sql, new BeanListHandler<>(User.class));
+            List<User> userList = queryRunner.query(connection, sql, new BeanListHandler<User>(User.class));
             Assert.assertEquals(userList.size(), 3);
             for (User user : userList) {
                 System.out.println(user);
@@ -145,7 +150,7 @@ public class DbUtilsTestCase {
         String sql = "select username from t_user";
         QueryRunner queryRunner = new QueryRunner();
         try {
-            List<Object> names = queryRunner.query(connection, sql, new ColumnListHandler<>());
+            List<String> names = queryRunner.query(connection, sql, new ColumnListHandler<String>());
             Assert.assertEquals(names.size(), 3);
             for (Object name : names) {
                 System.out.println(name);
@@ -173,7 +178,7 @@ public class DbUtilsTestCase {
 
 
 
-//第一次测试
+//第一次测试(课堂)
 //@Test
 //    public void testInsert() throws SQLException{
 //    QueryRunner queryRunner=new QueryRunner();

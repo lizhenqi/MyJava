@@ -17,6 +17,10 @@ import java.util.List;
  */
 public class UserDao {
 
+
+
+
+    //第二次测试(自测)
     public void testInsert(User user){
         String sql="insert into t_user(username,password,address)values(?,?,?)";
         Dbhelp.userUpdate(sql,user.getUsername(),user.getPassword(),user.getAddress());
@@ -62,7 +66,7 @@ public class UserDao {
 
 
 
-    //第一次测试
+    //第一次测试(课堂)
 //   public void userInsert(User user){
 //       String sql="insert into t_user(username,password,address)values(?,?,?)";
 //       Dbhelp.userUpdate(sql,user.getUsername(),user.getPassword(),user.getAddress());

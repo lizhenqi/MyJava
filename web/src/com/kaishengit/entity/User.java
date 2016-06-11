@@ -2,6 +2,7 @@ package com.kaishengit.entity;
 
 public class User {
 
+    //第二次测试(自测)
     private int ID;
     private String username;
     private String password;
@@ -66,7 +67,7 @@ public class User {
 
 
 
-    //第一次测试
+    //第一次测试(课堂)
 //    private int ID;
 //    private String username;
 //    private String password;
