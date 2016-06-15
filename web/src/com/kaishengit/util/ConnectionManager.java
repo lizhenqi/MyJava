@@ -35,7 +35,6 @@ public class ConnectionManager {
         dataSource.setMaxIdle(new Integer(pro.getProperty("jdbc.minidle","5")));
     }
 
-
     public static Connection getConnection() {
         try {
             Connection connection=dataSource.getConnection();
