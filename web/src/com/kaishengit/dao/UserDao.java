@@ -40,6 +40,10 @@ public class UserDao {
         String sql="select *from t_user where id=?";
         return Dbhelp.userFind(sql,new BeanHandler<>(User.class),id);
     }
+    public User testFindName(String name){
+        String sql="select *from t_user where username=?";
+        return Dbhelp.userFind(sql,new BeanHandler<>(User.class),name);
+    }
     public List<User> testFindList(){
         String sql="select *from t_user";
        return Dbhelp.userFind(sql,new BeanListHandler<>(User.class));

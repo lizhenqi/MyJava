@@ -15,8 +15,8 @@ public class Md5TestCase {
     public void md5Test(){
         String password="1111";
         String salt="35@*$^$@)!)";
-        password= DigestUtils.md5Hex(password);
-        System.out.println(password.length());
+        password= DigestUtils.md5Hex(password+salt);
+        System.out.println(password);
     }
     @Test
     public void shaTest(){
