@@ -6,6 +6,3 @@
 servlet.iml
 target/
 
-
-src/main/webapp/static/
-src/main/webapp/index.jsp
