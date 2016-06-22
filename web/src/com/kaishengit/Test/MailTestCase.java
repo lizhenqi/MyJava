@@ -37,56 +37,69 @@ public class MailTestCase {
 
         //法二调用已经下好的方法：EmailUtil
         EmailUtil emailUtil=new EmailUtil();
-        emailUtil.sendTestEmail("smtp.163.com","18336880379","lzqqzl565400","18336880379@163.com","ceshi","ceshi","565400895@qq.com");
+        emailUtil.sendTestEmail("ceshi","ceshi","565400895@qq.com");
 
 
     }
     @Test
     public void testSendHtml(){
 
+        //方法一
         //发送Html文件
-        HtmlEmail simpleEmail=new HtmlEmail();//注意这个
-        simpleEmail.setHostName("smtp.163.com");
-        simpleEmail.setAuthentication("18336880379","lzqqzl565400");
-        simpleEmail.setCharset("utf-8");
-        try {
-            simpleEmail.setFrom("18336880379@163.com");
-            simpleEmail.setSubject("HTML测试");
-            simpleEmail.setHtmlMsg("<div style='color:blue'>测试</div><img src='http://ww1.sinaimg.cn/mw690/6b6e567cgw1f4x4aks870j20c80c8jrn.jpg'/>");
-            simpleEmail.addTo("565400895@qq.com");
-            simpleEmail.send();
-            logger.info("发送成功！");
-        } catch (EmailException e) {
-            throw new DataAccessException("发送失败",e);
-        }
+//        HtmlEmail simpleEmail=new HtmlEmail();//注意这个
+//        simpleEmail.setHostName("smtp.163.com");
+//        simpleEmail.setAuthentication("18336880379","lzqqzl565400");
+//        simpleEmail.setCharset("utf-8");
+//        try {
+//            simpleEmail.setFrom("18336880379@163.com");
+//            simpleEmail.setSubject("HTML测试");
+//            simpleEmail.setHtmlMsg("<div style='color:blue'>测试</div><img src='http://ww1.sinaimg.cn/mw690/6b6e567cgw1f4x4aks870j20c80c8jrn.jpg'/>");
+//            simpleEmail.addTo("565400895@qq.com");
+//            simpleEmail.send();
+//            logger.info("发送成功！");
+//        } catch (EmailException e) {
+//            throw new DataAccessException("发送失败",e);
+//        }
+
+        //方法二
+        EmailUtil emailUtil=new EmailUtil();
+        String html="<div style='color:red'>是红色吗？</div>";
+        emailUtil.sendHtmlEmail("测试html",html,"565400895@qq.com");
     }
 
 
     @Test
     public void testSendAttachMail(){
 
+
+        //方法一
         //发送带附件的邮件
-        EmailAttachment attach=new EmailAttachment();//注意
-        attach.setPath("D:/test/1.jpg");
+//        EmailAttachment attach=new EmailAttachment();//注意
+//        attach.setPath("D:/test/1.jpg");
+//
+//        MultiPartEmail multiPartEmail=new MultiPartEmail();//注意
+//        multiPartEmail.setHostName("smtp.163.com");
+//        multiPartEmail.setAuthentication("18336880379","lzqqzl565400");
+//        multiPartEmail.setCharset("utf-8");
+//
+//        try {
+//            multiPartEmail.setFrom("18336880379@163.com");
+//            multiPartEmail.setSubject("附件发送");
+//            multiPartEmail.setMsg("附件是一张图片，收到了吗？");
+//            multiPartEmail.addTo("565400895@qq.com");
+//            multiPartEmail.attach(attach);
+//            multiPartEmail.send();
+//            logger.info("发送成功！");
+//
+//
+//        } catch (EmailException e) {
+//           throw new DataAccessException("发送失败！",e);
+//        }
 
-        MultiPartEmail multiPartEmail=new MultiPartEmail();//注意
-        multiPartEmail.setHostName("smtp.163.com");
-        multiPartEmail.setAuthentication("18336880379","lzqqzl565400");
-        multiPartEmail.setCharset("utf-8");
-
-        try {
-            multiPartEmail.setFrom("18336880379@163.com");
-            multiPartEmail.setSubject("附件发送");
-            multiPartEmail.setMsg("附件是一张图片，收到了吗？");
-            multiPartEmail.addTo("565400895@qq.com");
-            multiPartEmail.attach(attach);
-            multiPartEmail.send();
-            logger.info("发送成功！");
-
-
-        } catch (EmailException e) {
-           throw new DataAccessException("发送失败！",e);
-        }
+        //方法二
+        EmailUtil emailUtil=new EmailUtil();
+        String path="D:/test/1.jpg";
+        emailUtil.sendAttachEmail(path,"测试附件","附件接收到吗？","565400895@qq.com");
     }
 
 }

@@ -17,22 +17,17 @@ public class ConnectionManager {
     //第二次测试(自测)
     private static BasicDataSource dataSource=new BasicDataSource();
     static {
-        Properties pro=new Properties();
-        try {
-            pro.load(ConnectionManager.class.getClassLoader().getResourceAsStream("config.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException("读取config.properties异常",e);
-        }
-        dataSource.setDriverClassName(pro.getProperty("jdbc.driver"));
-        dataSource.setUrl(pro.getProperty("jdbc.url"));
-        dataSource.setUsername(pro.getProperty("jdbc.username"));
-        dataSource.setPassword(pro.getProperty("jdbc.password"));
 
-        dataSource.setInitialSize(new Integer(pro.getProperty("jdbc.initsize","5")));
-        dataSource.setMaxTotal(new Integer(pro.getProperty("jdbc.maxtotal","20")));
-        dataSource.setMaxWaitMillis(new Integer(pro.getProperty("jdbc.maxwait","5000")));
-        dataSource.setMinIdle(new Integer(pro.getProperty("jdbc.maxidle","10")));
-        dataSource.setMaxIdle(new Integer(pro.getProperty("jdbc.minidle","5")));
+        dataSource.setDriverClassName(Config.get("jdbc.driver"));
+        dataSource.setUrl(Config.get("jdbc.url"));
+        dataSource.setUsername(Config.get("jdbc.username"));
+        dataSource.setPassword(Config.get("jdbc.password"));
+
+        dataSource.setInitialSize(new Integer(Config.get("jdbc.initsize","5")));
+        dataSource.setMaxTotal(new Integer(Config.get("jdbc.maxtotal","20")));
+        dataSource.setMaxWaitMillis(new Integer(Config.get("jdbc.maxwait","5000")));
+        dataSource.setMinIdle(new Integer(Config.get("jdbc.maxidle","10")));
+        dataSource.setMaxIdle(new Integer(Config.get("jdbc.minidle","5")));
     }
 
     public static Connection getConnection() {
