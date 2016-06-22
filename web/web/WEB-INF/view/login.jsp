@@ -48,9 +48,12 @@
      $(function(){
          $("#submitBtn").click(function(){
             var pwd=$("#password").val();
+
              pwd=CryptoJS.MD5(pwd);
+
              $("#password").val(pwd);
              $("#submitForm").submit();
+
              console.log(pwd.toString())
 
          });

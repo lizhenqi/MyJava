@@ -11,11 +11,11 @@
     <div class="panel panel-default" style="text-align: center">
 
         <div class="panel-heading" >
-            <h1>电影列表</h1>
+            <h1>分页测试！！！</h1>
         </div>
-        <div class="page-header">
-            <h4 style="margin-top: 0px;margin-bottom: 0px">分页演示</h4>
-        </div>
+        <%--<div class="page-header">--%>
+            <%--<h4 style="margin-top: 0px;margin-bottom: 0px"></h4>--%>
+        <%--</div>--%>
         <div class="panel-body">
             <table class="table">
                 <thead>
@@ -43,7 +43,14 @@
 
         </div>
         <div class="panel-footer" style="text-align:center">
-                <ul class="pagination" style="margin: 0px">
+
+            <%--插件：这一行代替下面所有注释部分--%>
+            <ul class="pagination" id="page"></ul>
+
+
+
+
+               <%-- <ul class="pagination" style="margin: 0px">
                     <c:choose>
                         <c:when test="${page.pageNo==1}">
                             <li class="disabled"><a href="javascript:;" >首页</a></li>
@@ -65,10 +72,31 @@
                         </c:otherwise>
                     </c:choose>
                 </ul>
+                --%>
         </div>
 
     </div>
 
 </div>
+
+<script src="/static/js/jquery-2.2.3.min.js"></script>
+<script src="/static/js/jquery.twbsPagination.min.js"></script>
+<script>
+    $(function(){
+
+        $("#page").twbsPagination({
+            totalPages:${page.pageSize},
+            visiblePages:10,
+            first:"首页",
+            prev:"上一页",
+            next:"下一页",
+            last:"末页",
+            href:"?p={{number}}"
+        });
+    });
+
+</script>
+
+
 </body>
 </html>

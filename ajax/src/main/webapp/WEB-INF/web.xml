@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+
+
+
+
+
+</web-app>
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>
+<books>
+	<book ISBN="123">
+		<title>java编程</title>
+		<price>100</price>
+		<gift/>
+		<authors>
+			<author>
+				<name>jim</name>
+				<address>中国</address>
+			</author>
+			<author>
+				<name>tom</name>
+				<address>美国</address>
+			</author>
+		</authors>
+
+
+	</book>
+
+
+
+
+</books>
+
+
+<users>
+	<user id="100">
+		<name>tom</name>
+		<address>USA</address>
+		<commit>
+			<![CDATA[
+				<span color="blue"></span>
+				<span color="yellow"></span>
+				<span color="red"></span>
+			]]>
+		</commit>
+	</user>
+	<user id="101">
+		<name>jim</name>
+		<address>CHINA</address>
+	</user>
+</users>
+-->

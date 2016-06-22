@@ -23,7 +23,7 @@ public class UserService {
     public User login(String username, String password){
 
         User user=userDao.testFindName(username);
-        password = DigestUtils.md5Hex(password+SALT);
+       // password = DigestUtils.md5Hex(password+SALT);
 
         if(user!=null&&user.getPassword().equals(password)){
             logger.info("{}登录成功",username);
