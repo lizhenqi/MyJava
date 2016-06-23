@@ -13,14 +13,16 @@ import java.io.PrintWriter;
 
 /**
  * Created by Administrator on 2016/6/20.
- */@WebServlet("/ajax")
+ */
+@WebServlet("/ajax")
 public class AjaxServlet extends HttpServlet {
-    private Logger logger= LoggerFactory.getLogger(AjaxServlet.class);
+    private Logger logger = LoggerFactory.getLogger(AjaxServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Ajax get......");
 
-        PrintWriter printWriter=resp.getWriter();
+        PrintWriter printWriter = resp.getWriter();
         printWriter.print("rose");
         printWriter.flush();
         printWriter.close();
@@ -29,10 +31,14 @@ public class AjaxServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        logger.debug("Ajax post.....");
 
-       logger.debug("Ajax post.....");
-        PrintWriter printWriter=resp.getWriter();
-        printWriter.print("PHP");
+        String name = req.getParameter("name");
+        logger.debug("Ajax post....."+name);
+
+        PrintWriter printWriter = resp.getWriter();
+        printWriter.print("PHP"+name);
         printWriter.flush();
         printWriter.close();
     }

@@ -22,7 +22,7 @@ public class UserXmlServlet extends HttpServlet {
 
         out.print("<users>");
         out.print("<user id=\"101\"><name>tom</name><address>USA</address></user>");
-        out.print("<user id=\"102\"><name>jim</name><address>CAN</address></user>");
+        out.print("<user id=\"102\"><name>jim</name><address>USA</address></user>");
         out.print("<user id=\"103\"><name>lee</name><address>CHINA</address></user>");
         out.print("</users>");
 
