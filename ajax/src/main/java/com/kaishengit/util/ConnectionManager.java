@@ -2,7 +2,6 @@ package com.kaishengit.util;
 
 
 import com.kaishengit.exception.DataAccessException;
-import com.mysql.fabric.xmlrpc.base.Data;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
