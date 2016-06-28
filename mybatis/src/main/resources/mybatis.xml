@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--别名-->
+    <typeAliases>
+        <typeAlias type="com.kaishengit.pojo.User" alias="User"/>
+    </typeAliases>
+
+
+    <!--default可以选择下面的test1、test2等等-->
+    <environments default="test1">
+
+        <environment id="test1">
+
+            <transactionManager type="JDBC"/>
+
+            <!--这里面包括连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///db_21"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+
+            </dataSource>
+        </environment>
+        <!--环境-->
+        <environment id="test2">
+
+            <transactionManager type="JDBC"/>
+
+            <!--这里面包括连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///db_21"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--加载mapper文件-->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+    </mappers>
+
+
+</configuration>
