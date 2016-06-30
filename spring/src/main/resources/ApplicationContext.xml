@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+
+    <!--lazy-init="true"表示容器启动不创建对象，getBean("xx")时候才会创建>>>>>或者成为（类的延迟加载）-->
+    <bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="true"/>
+
+    <bean id="userService" class="com.kaishengit.service.UserService">
+        <property name="userDaoXX" ref="userDao"/>
+
+        <!--注意上面的name=“xx”，xx指的是被注入类的set方法名，
+        只不过大部分和注入类的属性一样而已，这里特意变动一下，以示区分-->
+    </bean>
+
+
+    <!--
+    1:id里面只能起一个名子
+    2:init-method 初始化方法
+    3：默认：scope="singleton" 是单例，容器启动就是创建对象。如果scope="prototype"，则在getBean("userDao")时候才会创建对象,就不是单例了
+    -->
+    <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" init-method="init" destroy-method="destroy" scope="prototype"/>-->
+    <!--给usetanDao起一个别名“别名测试1”-->
+    <!--<alias name="userDao" alias="别名测试1"/>-->
+
+
+
+
+    <!--name里面可以起多个别名，一般不这样用-->
+    <!--<bean name="userDao,li" class="com.kaishengit.dao.UserDao"/>-->
+    <!--<alias name="userDao" alias="别名测试2"/>-->
+
+
+
+</beans>
