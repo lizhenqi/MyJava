@@ -7,6 +7,13 @@
     <!--别名-->
     <typeAliases>
         <typeAlias type="com.kaishengit.pojo.User" alias="User"/>
+
+        <typeAlias type="com.kaishengit.pojo.Node" alias="Node"/>
+
+        <typeAlias type="com.kaishengit.pojo.Topic" alias="Topic"/>
+
+        <typeAlias type="com.kaishengit.pojo.Tag" alias="Tag"/>
+
     </typeAliases>
 
 
@@ -20,7 +27,7 @@
             <!--这里面包括连接池-->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql:///db_21"/>
+                <property name="url" value="jdbc:mysql:///forum"/>
                 <property name="username" value="root"/>
                 <property name="password" value="root"/>
 
@@ -43,9 +50,21 @@
 
     </environments>
 
+
     <!--加载mapper文件-->
+    <!--<mappers>-->
+        <!--<mapper resource="mapper/UserMapper.xml"></mapper>-->
+
+        <!--<mapper resource="mapper/NodeMapper.xml"></mapper>-->
+
+        <!--<mapper resource="mapper/TopicMapper.xml"></mapper>-->
+    <!--</mappers>-->
+
     <mappers>
-        <mapper resource="mapper/UserMapper.xml"></mapper>
+        <mapper class="com.kaishengit.mapper.UserMapper"/>
+        <mapper class="com.kaishengit.mapper.TagMapper"/>
+        <mapper class="com.kaishengit.mapper.TopicMapper"/>
+        <mapper class="com.kaishengit.mapper.NodeMapper"/>
     </mappers>
 
 

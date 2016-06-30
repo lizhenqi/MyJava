@@ -1,13 +1,31 @@
 package com.kaishengit.pojo;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/6/28.
  */
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String username;
     private String password;
-    private String address;
+    private String email;
+    private String avatar;
+    private String createtime;
+    private String loginip;
+    private String logintime;
+    private String state;
+
+    private List<Tag> tagList;
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
 
     public Integer getId() {
         return id;
@@ -33,12 +51,52 @@ public class User {
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getLoginip() {
+        return loginip;
+    }
+
+    public void setLoginip(String loginip) {
+        this.loginip = loginip;
+    }
+
+    public String getLogintime() {
+        return logintime;
+    }
+
+    public void setLogintime(String logintime) {
+        this.logintime = logintime;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override
@@ -47,7 +105,13 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", createtime='" + createtime + '\'' +
+                ", loginip='" + loginip + '\'' +
+                ", logintime='" + logintime + '\'' +
+                ", state='" + state + '\'' +
+                ", tagList=" + tagList +
                 '}';
     }
 }

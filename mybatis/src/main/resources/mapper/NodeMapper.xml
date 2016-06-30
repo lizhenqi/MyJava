@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.NodeMapper">
+    <cache/>
+<!--<cache size="1024" readOnly="false" flushInterval="30000" eviction="FIFO" />-->
+    <insert id="batchSave" parameterType="list">
+        INSERT into t_node(nodename)VALUES
+        <!--collection="xx"这里面的xx根据NodeMapper传进去的参数定，是collection就写collection，是list就写list -->
+        <foreach collection="list" item="node" separator=",">
+
+            (#{node.nodename})
+        </foreach>
+    </insert>
+
+
+    <select id="findIdList" parameterType="list" resultType="Node">
+        SELECT * from t_node where id IN
+        <foreach collection="list" item="node" separator="," open="(" close=")">
+            #{node}
+        </foreach>
+    </select>
+
+    <!--加userCache="false"不自动缓存-->
+    <select id="findById" resultType="com.kaishengit.pojo.Node" useCache="false" flushCache="false">
+        SELECT *from t_node
+        WHERE id=#{id}
+
+    </select>
+
+</mapper>

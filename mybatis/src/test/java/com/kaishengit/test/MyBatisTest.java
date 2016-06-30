@@ -48,7 +48,6 @@ public class MyBatisTest {
             User user = new User();
             user.setUsername("测试");
             user.setPassword("测试");
-            user.setAddress("测试");
 
             sqlSession.insert("com.kaishengit.mapper.UserMapper.save", user);
             sqlSession.commit();
