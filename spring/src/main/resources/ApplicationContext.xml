@@ -2,11 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-<!---->
+    <!---->
     <bean id="bookService" class="com.kaishengit.service.BookService">
         <property name="bookName" value="bookName测试"/>
         <property name="num" value="110"/>
@@ -40,40 +46,64 @@
         </property>
     </bean>
 
+    <bean id="myAdvice" class="com.kaishengit.aop.MyAdvice"/>
+
 
     <bean id="userDao" class="com.kaishengit.dao.UserDaoImp1"/>
 
     <bean id="userDao2" class="com.kaishengit.dao.UserDaoImp2"/>
+    <aop:config>
+        <aop:aspect ref="myAdvice">
+            <!--切入点表达式-->
+            <aop:pointcut id="mypointCut" expression="execution(* com.kaishengit.dao..*.*(..))"/>
+
+            <!--环绕通知-->
+            <aop:around method="aroundAdvice" pointcut-ref="mypointCut"/>
 
 
+            <!--前置通知-->
+            <!--<aop:before method="beforeAdvice" pointcut-ref="mypointCut"/>-->
+            <!--后置通知-->
+            <!--<aop:after-returning method="afterAdvice" pointcut-ref="mypointCut" returning="result"/>-->
+            <!--异常通知-->
+            <!--<aop:after-throwing method="exceptionAdvice" pointcut-ref="mypointCut" throwing="e"/>-->
+            <!--最终通知-->
+            <!--<aop:after method="lastAdvice" pointcut-ref="mypointCut"/>-->
+
+        </aop:aspect>
+    </aop:config>
+
+    <!--
+    自动注入：
+    1.byName。根据setxx()方法的xx，从spring容器中获取对象，并自动注入到当前类中。
+    2.byType。根据setxx()，传入的参数类型，从spring容器中获取，并自动注入到当前类中，
+                如果查找到一个以上符合条件，则抛出异常。
+    3.constructor。先根据构造方法的参数的名字从spring中获取，如果没有符合的再根据类型查找。
+                即优先名字随后是类型
+    -->
+    <!--根据名字获取-->
     <!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="byName"/>-->
-
-
 
     <!--如果根据类型自动注入：UserDaoImp1和UserDaoImp2都是userDao的实现类，都满足，故无法判断选择哪个会报错。-->
     <!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="byType"/>-->
 
-    <!--自动构造方法注入：优先根据名字，名字没有再根据类型。而且都得只有一个符合，否则会报错。-->
+    <!--自动构造方法注入：优先根据名字，名字没有再根据类型。而且类型要只有一个符合，否则会报错。-->
     <bean id="userService" class="com.kaishengit.service.UserService" autowire="constructor"/>
-
-
-
-
 
 
     <!--构造方法注入-->
     <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
-        <!--这个userDao是指UserService里面传参userDao-->
+    <!--这个userDao是指UserService里面传参userDao-->
 
-        <!--注意：优先根据构造方法的名字注入-->
-        <!--<constructor-arg name="userDao" ref="userDao2"/>-->
+    <!--注意：优先根据构造方法的名字注入-->
+    <!--<constructor-arg name="userDao" ref="userDao2"/>-->
 
-        <!--根据构造方法的索引，从0开始-->
-        <!--<constructor-arg index="0" ref="userDao1"/>-->
+    <!--根据构造方法的索引，从0开始-->
+    <!--<constructor-arg index="0" ref="userDao1"/>-->
 
 
-        <!--根据构造方法的类型-->
-        <!--<constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao2"/>-->
+    <!--根据构造方法的类型-->
+    <!--<constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao2"/>-->
     <!--</bean>-->
 
 

@@ -6,8 +6,13 @@ package com.kaishengit.dao;
 public class UserDaoImp1 implements UserDao{
 
     @Override
-    public void save() {
+    public Integer save() {
         System.out.println("测试：save...");
-    }
 
+
+//        if(1==1){
+//            throw new RuntimeException("测试");
+//        }
+        return 110;
+    }
 }

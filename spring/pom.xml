@@ -47,6 +47,27 @@
             <version>4.2.6.RELEASE</version>
         </dependency>
 
+        <!--通知-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>4.2.6.RELEASE</version>
+        </dependency>
+
+        <!--spring中的单元测试-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.2.6.RELEASE</version>
+        </dependency>
+
+        <!--JSR 330-->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+
 
     </dependencies>
     <build>

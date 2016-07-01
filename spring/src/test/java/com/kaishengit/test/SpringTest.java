@@ -25,10 +25,8 @@ public class SpringTest {
 //
 //        bookService.showBook();
 
-
         UserService userService= (UserService) applicationContext.getBean("userService");
         userService.sayHi();
-
 
 //        UserDao userDao = (UserDao) applicationContext.getBean("userDao");
 //        userDao.sayHello();
