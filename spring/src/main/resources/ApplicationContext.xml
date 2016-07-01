@@ -1,21 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<!---->
+    <bean id="bookService" class="com.kaishengit.service.BookService">
+        <property name="bookName" value="bookName测试"/>
+        <property name="num" value="110"/>
+        <property name="lists">
+            <list>
+                <value>列表1</value>
+                <value>列表2</value>
+                <value>列表3</value>
+            </list>
+        </property>
+        <property name="sets">
+            <set>
+                <value>set1</value>
+                <value>set2</value>
+                <value>set3</value>
+            </set>
+        </property>
+        <property name="maps">
+            <map>
+                <entry key="k1" value="v1"/>
+                <entry key="k2" value="v2"/>
+                <entry key="k3" value="v3"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="p1">properties1</prop>
+                <prop key="p2">properties2</prop>
+                <prop key="p3">properties3</prop>
+            </props>
+        </property>
+    </bean>
 
+
+    <bean id="userDao" class="com.kaishengit.dao.UserDaoImp1"/>
+
+    <bean id="userDao2" class="com.kaishengit.dao.UserDaoImp2"/>
+
+
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="byName"/>-->
+
+
+
+    <!--如果根据类型自动注入：UserDaoImp1和UserDaoImp2都是userDao的实现类，都满足，故无法判断选择哪个会报错。-->
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="byType"/>-->
+
+    <!--自动构造方法注入：优先根据名字，名字没有再根据类型。而且都得只有一个符合，否则会报错。-->
+    <bean id="userService" class="com.kaishengit.service.UserService" autowire="constructor"/>
+
+
+
+
+
+
+    <!--构造方法注入-->
+    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
+        <!--这个userDao是指UserService里面传参userDao-->
+
+        <!--注意：优先根据构造方法的名字注入-->
+        <!--<constructor-arg name="userDao" ref="userDao2"/>-->
+
+        <!--根据构造方法的索引，从0开始-->
+        <!--<constructor-arg index="0" ref="userDao1"/>-->
+
+
+        <!--根据构造方法的类型-->
+        <!--<constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao2"/>-->
+    <!--</bean>-->
+
+
+    <!--set方法注入-->
+    <!--特殊写法-->
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" p:userDaoXX-ref="userDao"/>-->
+
+
+    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
+    <!--<property name="userDaoXX" ref="userDao"/>-->
+    <!--</bean>-->
 
 
     <!--lazy-init="true"表示容器启动不创建对象，getBean("xx")时候才会创建>>>>>或者成为（类的延迟加载）-->
-    <bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="true"/>
+    <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="true" />-->
 
-    <bean id="userService" class="com.kaishengit.service.UserService">
-        <property name="userDaoXX" ref="userDao"/>
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" >-->
+    <!--<property name="userDaoXX" ref="userDao"/>-->
+    <!--也有人如下面这样写（不常用）-->
 
-        <!--注意上面的name=“xx”，xx指的是被注入类的set方法名，
-        只不过大部分和注入类的属性一样而已，这里特意变动一下，以示区分-->
-    </bean>
+    <!--<property name="userDaoXX">-->
+    <!--<ref bean="userDao"/>-->
+    <!--</property>-->
+
+    <!--注意上面的name=“xx”，xx指的是被注入类的set方法名，
+    只不过大部分和注入类的属性一样而已，这里特意变动一下，以示区分-->
+    <!--</bean>-->
 
 
     <!--
@@ -28,12 +113,9 @@
     <!--<alias name="userDao" alias="别名测试1"/>-->
 
 
-
-
     <!--name里面可以起多个别名，一般不这样用-->
     <!--<bean name="userDao,li" class="com.kaishengit.dao.UserDao"/>-->
     <!--<alias name="userDao" alias="别名测试2"/>-->
-
 
 
 </beans>
