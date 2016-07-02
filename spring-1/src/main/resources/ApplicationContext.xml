@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!--注解管理-->
+    <context:component-scan base-package="com.kaishengit"/>
+
+    <!--读取配置文件-->
+    <context:property-placeholder location="classpath:config.properties"/>
+
+    <!--配置连接池-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql:///db_21"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxWaitMillis" value="${jdbc.maxwait}"/>
+        <property name="initialSize" value="${jdbc.initsize}"/>
+        <property name="maxIdle" value="${jdbc.maxidle}"/>
+        <property name="minIdle" value="${jdbc.maxidle}"/>
+        <property name="maxTotal" value="${jdbc.maxtoatal}"/>
+
+    </bean>
+
+    <!--jdbcTemplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--<constructor-arg name="dataSource" ref="dataSource"/> 能用sql注入就不用构造方法-->
+    </bean>
+
+
+
+
+
+</beans>
