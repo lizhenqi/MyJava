@@ -1,5 +1,6 @@
 package com.kaishengit.test;
 
+import com.kaishengit.dao.UserDaoImp2;
 import com.kaishengit.service.BookService;
 import com.kaishengit.service.UserService;
 import org.junit.Test;
@@ -18,9 +19,15 @@ public class SpringTest {
     @Test
     public void testUserDao() {
 
-        //注意：默认情况下spring中的类会变成单例类,容器启动就会创建类的对象（可以通过在类中写个构造方法测试）,相当于工厂模式的饿汉式。
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+//        UserDaoImp2 userDaoImp2= (UserDaoImp2) applicationContext.getBean("userDaoImp2");
+//        userDaoImp2.save();
 
+
+
+
+
+//注意：默认情况下spring中的类会变成单例类,容器启动就会创建类的对象（可以通过在类中写个构造方法测试）,相当于工厂模式的饿汉式。
 //        BookService bookService= (BookService) applicationContext.getBean("bookService");
 //
 //        bookService.showBook();

@@ -4,15 +4,19 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!---->
+
+
     <bean id="bookService" class="com.kaishengit.service.BookService">
         <property name="bookName" value="bookName测试"/>
         <property name="num" value="110"/>
@@ -46,19 +50,27 @@
         </property>
     </bean>
 
-    <bean id="myAdvice" class="com.kaishengit.aop.MyAdvice"/>
+<!--开启基于注解的Bean管理-->
+    <context:component-scan base-package="com.kaishengit"/>
+
+<!--开启基于注解的AOP通知-->
+    <aop:aspectj-autoproxy/>
 
 
-    <bean id="userDao" class="com.kaishengit.dao.UserDaoImp1"/>
 
-    <bean id="userDao2" class="com.kaishengit.dao.UserDaoImp2"/>
-    <aop:config>
-        <aop:aspect ref="myAdvice">
+
+    <!--<bean id="myAdvice" class="com.kaishengit.aop.MyAdvice"/>-->
+
+    <!--<bean id="userDao" class="com.kaishengit.dao.UserDaoImp1"/>-->
+
+    <!--<bean id="userDao2" class="com.kaishengit.dao.UserDaoImp2"/>-->
+    <!--<aop:config>-->
+        <!--<aop:aspect ref="myAdvice">-->
             <!--切入点表达式-->
-            <aop:pointcut id="mypointCut" expression="execution(* com.kaishengit.dao..*.*(..))"/>
+            <!--<aop:pointcut id="mypointCut" expression="execution(* com.kaishengit.dao..*.*(..))"/>-->
 
             <!--环绕通知-->
-            <aop:around method="aroundAdvice" pointcut-ref="mypointCut"/>
+            <!--<aop:around method="aroundAdvice" pointcut-ref="mypointCut"/>-->
 
 
             <!--前置通知-->
@@ -70,8 +82,8 @@
             <!--最终通知-->
             <!--<aop:after method="lastAdvice" pointcut-ref="mypointCut"/>-->
 
-        </aop:aspect>
-    </aop:config>
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
 
     <!--
     自动注入：
@@ -88,7 +100,7 @@
     <!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="byType"/>-->
 
     <!--自动构造方法注入：优先根据名字，名字没有再根据类型。而且类型要只有一个符合，否则会报错。-->
-    <bean id="userService" class="com.kaishengit.service.UserService" autowire="constructor"/>
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="constructor"/>-->
 
 
     <!--构造方法注入-->

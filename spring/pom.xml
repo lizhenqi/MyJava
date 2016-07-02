@@ -61,7 +61,7 @@
             <version>4.2.6.RELEASE</version>
         </dependency>
 
-        <!--JSR 330-->
+        <!--JSR 330,这是java提供的注解，而@Service、@Component、@Repository这是spring官方提供的-->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
