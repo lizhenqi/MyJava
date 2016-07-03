@@ -22,4 +22,8 @@ public class UserService {
         userMapper.save(user);
     }
 
+    public User findId(Integer id){
+        return userMapper.findId(id);
+    }
+
 }

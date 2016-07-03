@@ -1,31 +1,35 @@
-package com.kaishengit.dao;
+package com.kaishengit.service;
 
+import com.kaishengit.pojo.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Created by Administrator on 2016/7/2.
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:ApplicationContext.xml")
-public class LoginDaoTest {
-
-
-    private Logger logger= LoggerFactory.getLogger(LoginDaoTest.class);
+public class UserServiceTest {
     @Inject
-    private LoginDao loginDao;
+    private UserService userService;
 
     @Test
     public void testSave(){
-        loginDao.save("127.0.0.1",2);
-        logger.info("成功");
+        User user=new User("测试2","1","1");
+        userService.save(user);
+        System.out.println(user);
+    }
+
+    @Test
+    public void testFindId(){
+       User user=userService.findId(53);
+        System.out.println(user);
     }
 
 }

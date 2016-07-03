@@ -1,5 +1,6 @@
 package com.kaishengit.service;
 
+import com.kaishengit.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,9 +19,8 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    public void testLogin(){
-        userService.login("罗贯中","测试1","测试3.114.114.114");
-
-        System.out.println("测试成功");
+    public void testSave(){
+        User user=new User("测试6","1","1");
+        userService.save(user);
     }
 }

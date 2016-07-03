@@ -19,7 +19,8 @@
     <context:property-placeholder location="classpath:config.properties"/>
 
     <!--配置连接池-->
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+    <!--连接池使用完毕释放：destroy-method="close"-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
@@ -49,8 +50,10 @@
     </bean>
 
 
-
-
+    <!--jdbc模板-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
 
     <!--开启事务的三大步骤：-->
