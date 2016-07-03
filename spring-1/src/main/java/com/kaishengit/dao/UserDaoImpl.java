@@ -62,6 +62,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() {
         String sql="select *from t_user";
+
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<User>(User.class));
     }
 

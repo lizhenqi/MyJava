@@ -1,10 +1,8 @@
-package com.kaishengit.test;
+package com.kaishengit.dao;
 
-import com.kaishengit.dao.UserDao;
 import com.kaishengit.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -41,7 +39,7 @@ public class UserDaoTest {
     @Test
     public void testUpdate() {
         User user =userDao.findId(42);
-        user.setUsername("你好");
+        user.setUsername("测试");
         userDao.update(user);
         System.out.println("修改成功");
 

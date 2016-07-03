@@ -85,6 +85,13 @@
       <version>1</version>
     </dependency>
 
+    <!--spring中的事务-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>4.2.6.RELEASE</version>
+    </dependency>
+
 
 
   </dependencies>

@@ -3,12 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
-    
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
     <!--注解管理-->
     <context:component-scan base-package="com.kaishengit"/>
 
@@ -35,6 +38,36 @@
 
         <!--<constructor-arg name="dataSource" ref="dataSource"/> 能用sql注入就不用构造方法-->
     </bean>
+
+
+
+    <!--开启事务的三大步骤：-->
+    <!--1：jdbc事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+
+    </bean>
+
+    <!--2：基于注解的事务。3：在对应的方法或者类上加@Transactional-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+
+    <!--以前没有基于注解的事务时候：用的是基于xml的事务(现在很少用了):1,2两步骤-->
+    <!--第一步-->
+    <!--<tx:advice id="myAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="find*"/>-->
+            <!--<tx:method name="update*"/>-->
+            <!--&lt;!&ndash;<tx:method name="*"/>&ndash;&gt;-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--第二步-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="myPointCut" expression="execution(* com.kaishengit.dao..*.*(..))"/>-->
+            <!--<aop:advisor advice-ref="myAdvice" pointcut-ref="myPointCut"/>-->
+
+    <!--</aop:config>-->
 
 
 
