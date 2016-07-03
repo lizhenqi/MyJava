@@ -7,5 +7,7 @@ import com.kaishengit.pojo.User;
  */
 public interface UserMapper {
     void save(User user);
-    User findId(Integer id);//不影响
+    User findId(Integer id);
+    void delete(Integer id);
+    void updata(User user);
 }

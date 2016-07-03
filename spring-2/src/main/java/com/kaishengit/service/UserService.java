@@ -21,9 +21,15 @@ public class UserService {
     public void save(User user){
         userMapper.save(user);
     }
-
+    public void delete(Integer id){
+        userMapper.delete(id);
+    }
+    public void update(User user){
+        userMapper.updata(user);
+    }
     public User findId(Integer id){
         return userMapper.findId(id);
     }
+
 
 }
