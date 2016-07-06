@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.BookMapper">
+    <cache/>
+    <insert id="saveBook" parameterType="Book">
+        INSERT into t_book(bookname,bookprice,bookauthor,booknum,typeid,pubid,bookpic)
+        VALUES(#{bookname},#{bookprice},#{bookauthor},#{booknum},#{typeid},#{pubid},'')
+    </insert>
+    <update id="updateBook" parameterType="Book">
+        UPDATE t_book set bookname=#{bookname},bookprice=#{bookprice},bookauthor=#{bookauthor},
+        booknum=#{booknum},typeid=#{typeid},pubid=#{pubid},bookpic=#{bookpic}
+        where id=#{id}
+    </update>
+    <delete id="deleteBook" parameterType="int">
+        DELETE from t_book where id=#{id}
+    </delete>
+    <select id="findById" resultType="Book" parameterType="int">
+        SELECT *from t_book where id=#{id}
+    </select>
+    <select id="findAll" resultType="Book">
+        SELECT t_book.*,t_booktype.id as 'bookType.id',t_booktype.booktype AS 'bookType.booktype',
+        t_publisher.id as 'publisher.id',t_publisher.pubname as 'publisher.pubname'
+        from t_book
+         INNER JOIN t_booktype ON t_book.typeid=t_booktype.id
+         INNER JOIN t_publisher ON t_book.pubid=t_publisher.id
+         ORDER BY t_book.id DESC
+    </select>
+
+
+</mapper>
