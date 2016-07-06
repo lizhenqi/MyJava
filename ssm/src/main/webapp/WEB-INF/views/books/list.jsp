@@ -43,15 +43,26 @@
                 <td>${book.booknum}</td>
                 <td>${book.bookType.booktype}</td>
                 <td>${book.publisher.pubname}</td>
+
+                <td>
+                    <a href="/books/${book.id}" class="">修改</a>
+                    <a href="javascript:;" data="${book.id}" class="del">删除</a>
+                </td>
             </tr>
         </c:forEach>
-
-
         </tbody>
-
-
     </table>
 </div>
-
+    <script src="/static/js/jquery-2.2.3.min.js"></script>
+    <script>
+        $(function(){
+            $(".del").click(function(){
+                var id=$(this).attr("data");
+                if(confirm("确定删除？")){
+                    window.location.href="/books/"+id+"/del";
+                }
+            })
+        })
+    </script>
 </body>
 </html>
