@@ -9,14 +9,31 @@
     <!--2:配置业务控制器的扫描-->
     <context:component-scan base-package="com.kaishengit.controller"/>
 
-    <!--3:注解-->
+    <!--3:控制器基于注解-->
     <mvc:annotation-driven/>
+
+
+    <!--对于静态资源的处理（img图片问题。因为所有请求都是经中央控制器到业务控制器，
+    这种静态的资源希望就不用经过中央控制器了，怎么办呢？如下）：方法一-->
+    <!--<mvc:default-servlet-handler/>-->
+
+    <!--方法二。这个更好，配置缓存加载后以后就直接从浏览器(304)而不是服务器获取了-->
+    <mvc:resources mapping="/static/**" location="/static/">
+        <mvc:cache-control max-age="4000" cache-public="true"/>
+    </mvc:resources>
+
 
     <!--4:视图解析器-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--文件上传解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1000000000"/>
+        <!--文件大小-->
     </bean>
 
 
