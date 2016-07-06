@@ -13,6 +13,7 @@ import sun.dc.pr.PRError;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/7/5.
@@ -56,11 +57,19 @@ public class BookService {
     }
 
 
-    public Page<Book> findPageBook(Integer p) {
-        int totalSize=bookMapper.count().intValue();
+    public Page<Book> findPageBook(Integer p, Map<String,Object> param) {
+
+        int totalSize=bookMapper.countByParam(param).intValue();
+
         Page<Book> page=new Page<>(5,totalSize,p);
 
-        List<Book> bookList=bookMapper.findByPage(page.getStart(),5);
+
+        param.put("start",page.getStart());
+        param.put("size",5);
+
+
+//        List<Book> bookList=bookMapper.findByPage(page.getStart(),5);
+        List<Book> bookList=bookMapper.findByParam(param);
 
         page.setItems(bookList);
 

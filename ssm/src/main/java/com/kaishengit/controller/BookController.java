@@ -1,11 +1,13 @@
 package com.kaishengit.controller;
 
+import com.google.common.collect.Maps;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Book;
 import com.kaishengit.pojo.BookType;
 import com.kaishengit.pojo.Publisher;
 import com.kaishengit.service.BookService;
 import com.kaishengit.util.Page;
+import com.kaishengit.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/7/5.
@@ -39,10 +42,37 @@ public class BookController {
 //分页显示
     @RequestMapping(method = RequestMethod.GET)
     public String list(@RequestParam(required = false,defaultValue = "1") Integer p,
-            Model model) {
+            Model model,
+            @RequestParam(required = false)String bookname,
+            @RequestParam(required = false)Integer type,
+            @RequestParam(required = false)Integer pub) {
 
-        Page<Book> pageList = bookService.findPageBook(p);
+        bookname = Strings.toUTF8(bookname);
+//       把三个查询参数封装在Map内
+        Map<String ,Object> param= Maps.newHashMap();
+
+        param.put("bookname",bookname);
+        param.put("type",type);
+        param.put("pub",pub);
+
+
+
+
+
+        List<BookType> bookTypeList=bookService.findAllBookType();
+        List<Publisher> publisherList=bookService.findAllPublisher();
+        model.addAttribute("bookTypeList",bookTypeList);
+        model.addAttribute("publisherList",publisherList);
+
+
+
+        Page<Book> pageList = bookService.findPageBook(p,param);
         model.addAttribute("pageList", pageList);
+
+//再次传回去，当搜索时候矿里面显示当前。
+        model.addAttribute("bookname",bookname);
+        model.addAttribute("typeid",type);
+        model.addAttribute("pubid",pub);
 
         return "books/list";
     }
