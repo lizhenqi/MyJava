@@ -6,6 +6,7 @@ import com.kaishengit.mapper.PublisherMapper;
 import com.kaishengit.pojo.Book;
 import com.kaishengit.pojo.BookType;
 import com.kaishengit.pojo.Publisher;
+import com.kaishengit.util.Page;
 import org.springframework.transaction.annotation.Transactional;
 import sun.dc.pr.PRError;
 
@@ -52,5 +53,17 @@ public class BookService {
 
     public List<Publisher> findAllPublisher(){
         return publisherMapper.findAll();
+    }
+
+
+    public Page<Book> findPageBook(Integer p) {
+        int totalSize=bookMapper.count().intValue();
+        Page<Book> page=new Page<>(5,totalSize,p);
+
+        List<Book> bookList=bookMapper.findByPage(page.getStart(),5);
+
+        page.setItems(bookList);
+
+        return page;
     }
 }

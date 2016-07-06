@@ -14,6 +14,7 @@
             <h2 style="color: greenyellow;text-align: center">新增书籍</h2>
         </div>
         <form action="/books/${book.id}" method="post">
+            <%--修改保存还得把id传过去--%>
             <input class="hidden" name="id" value="${book.id}"/>
             <div class="form-group">
                 <label>书籍名称</label>

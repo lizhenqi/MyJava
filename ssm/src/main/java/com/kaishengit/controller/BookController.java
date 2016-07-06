@@ -1,14 +1,17 @@
 package com.kaishengit.controller;
 
+import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Book;
 import com.kaishengit.pojo.BookType;
 import com.kaishengit.pojo.Publisher;
 import com.kaishengit.service.BookService;
+import com.kaishengit.util.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
@@ -24,11 +27,23 @@ public class BookController {
     private BookService bookService;
 
 
-//    查询所有
+//    查询所有（不分页时候,分页时候如下）
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String list(Model model) {
+//        List<Book> bookList = bookService.findAllBook();
+//        model.addAttribute("bookList", bookList);
+//        return "books/list";
+//    }
+
+
+//分页显示
     @RequestMapping(method = RequestMethod.GET)
-    public String list(Model model) {
-        List<Book> bookList = bookService.findAllBook();
-        model.addAttribute("bookList", bookList);
+    public String list(@RequestParam(required = false,defaultValue = "1") Integer p,
+            Model model) {
+
+        Page<Book> pageList = bookService.findPageBook(p);
+        model.addAttribute("pageList", pageList);
+
         return "books/list";
     }
 
@@ -70,6 +85,7 @@ public class BookController {
         Book book=bookService.findById(id);
         if(book==null){
 //            TODO
+            throw new NotFoundException();
         }
 
 

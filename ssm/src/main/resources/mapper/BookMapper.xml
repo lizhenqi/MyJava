@@ -26,6 +26,21 @@
          INNER JOIN t_booktype ON t_book.typeid=t_booktype.id
          INNER JOIN t_publisher ON t_book.pubid=t_publisher.id
          ORDER BY t_book.id DESC
+
+    </select>
+    <select id="count" resultType="java.lang.Long">
+        SELECT count(*) FROM t_book
+    </select>
+
+    <!--分页用-->
+    <select id="findByPage" resultType="com.kaishengit.pojo.Book">
+            SELECT t_book.*,t_booktype.id as 'bookType.id',t_booktype.booktype AS 'bookType.booktype',
+        t_publisher.id as 'publisher.id',t_publisher.pubname as 'publisher.pubname'
+        from t_book
+         INNER JOIN t_booktype ON t_book.typeid=t_booktype.id
+         INNER JOIN t_publisher ON t_book.pubid=t_publisher.id
+         ORDER BY t_book.id DESC
+         limit ${start},${size}
     </select>
 
 

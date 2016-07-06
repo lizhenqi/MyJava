@@ -34,7 +34,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${bookList}" var="book">
+        <c:forEach items="${pageList.items}" var="book">
             <tr>
                 <td>${book.id}</td>
                 <td>${book.bookname}</td>
@@ -51,9 +51,14 @@
             </tr>
         </c:forEach>
         </tbody>
+
     </table>
+    <ul class="pagination pull-right" id="page"></ul>
 </div>
     <script src="/static/js/jquery-2.2.3.min.js"></script>
+<%--jQuery分页插件--%>
+    <script src="/static/js/jquery.twbsPagination.min.js"></script>
+
     <script>
         $(function(){
             $(".del").click(function(){
@@ -62,7 +67,23 @@
                     window.location.href="/books/"+id+"/del";
                 }
             })
-        })
+        });
+//jQuery分页插件
+        $(function(){
+            $("#page").twbsPagination({
+                totalPages:${pageList.totalPage},
+                visiblePages:5,
+                first:"首页",
+                prev:"上一页",
+                next:"下一页",
+                last:"末页",
+                href:"?p={{number}}"
+            })
+        });
+
+
+
+
     </script>
 </body>
 </html>

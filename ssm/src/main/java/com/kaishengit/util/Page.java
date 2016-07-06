@@ -9,12 +9,12 @@ public class Page<T> {
     private Integer size;
     private Integer totalSize;
     private Integer pageNo;
-    private Integer pageSize;
+    private Integer totalPage;
     private List<T> items;
-	
-	/**
-    * 获取当前页起始行数
-    */
+
+    /**
+     * 获取当前页起始行数
+     */
     private Integer start;
 
     /**
@@ -28,18 +28,18 @@ public class Page<T> {
         this.totalSize = totalSize;
         this.pageNo = pageNo;
 
-        pageSize=totalSize/size;
+        totalPage=totalSize/size;
 
         if(totalSize % size!=0){
-            pageSize=pageSize+1;
+            totalPage=totalPage+1;
         }
         if(pageNo<=0){
             this.pageNo=1;//注意下面的几个pageNo要有this,因为传值过来后，得判断，不满足的要重新赋值给本类即：this.pageNo=xx;
         }
-        if(pageNo>pageSize){
-            this.pageNo=pageSize;
+        if(pageNo>totalPage){
+            this.pageNo=totalPage;
         }
-
+//当前页的起始条数
         start=(this.pageNo-1)*size;
     }
 
@@ -59,8 +59,8 @@ public class Page<T> {
         return start;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
+    public Integer getTotalPage() {
+        return totalPage;
     }
 
     public Integer getPageNo() {
