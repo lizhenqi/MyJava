@@ -98,15 +98,19 @@
         INNER JOIN t_publisher ON t_book.pubid=t_publisher.id
 
         <where>
-            <if test="keyWord != null and keyWord != ''">
-                bookname LIKE CONCAT('%',#{keyWord},'%')
+            <if test="bookname != null and bookname != ''">
+                bookname LIKE CONCAT('%',#{bookname},'%')
             </if>
-
+            <if test="type != null and type != ''">
+                and typeid=#{type}
+            </if>
+            <if test="pub != null and pub != ''">
+                and pubid=#{pub}
+            </if>
         </where>
         <if test="sortCountName != null and sortCountName != '' and sortCountType != null and sortCountType != ''">
             ORDER BY ${sortCountName} ${sortCountType}
         </if>
-
         limit ${start},${length}
 
     </select>

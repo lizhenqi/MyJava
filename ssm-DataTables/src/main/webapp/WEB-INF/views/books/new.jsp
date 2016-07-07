@@ -31,7 +31,7 @@
 
             <div class="form-group">
                 <label>数量</label>
-                <input type="text" name="" class="form-control"/>
+                <input type="text" name="booknum" class="form-control"/>
             </div>
 
             <div class="form-group">

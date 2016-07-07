@@ -98,6 +98,7 @@ public class BookController {
         return "redirect:/books";
     }
 
+
     @RequestMapping(value = "/{id:\\d+}",method = RequestMethod.GET)
     public String editBook(@PathVariable Integer id,Model model){
 
@@ -125,7 +126,5 @@ public class BookController {
         msg.addFlashAttribute("message","修改成功");
         return "redirect:/books";
     }
-
-
 
 }
