@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--配置登录的url-->
+        <property name="loginUrl" value="/"/>
+        <!--配置登录成功后去的url-->
+        <property name="successUrl" value="/home"/>
+
+        <property name="securityManager" ref="securityManager"/>
+        <!--引用下面的securityManager-->
+
+        <!--配置url级别的权限要求-->
+        <property name="filterChainDefinitions">
+            <value>
+
+                /static/**=anon
+                <!--anon表示是匿名的，可以访问的(即想让谁不经过登录就能访问就把它设置为anon)。这里静态资源是可以访问的-->
+
+                <!--/**表示/下的所有目录-->
+                /**=authc
+                <!--/下的所有都需要验证。所有右边的字都是固定的。没有验证的直接踢回到上面的:loginUrl-->
+                <!--一定要注意权限是逐行执行的，所以/**=authc，要放在最后。-->
+            </value>
+        </property>
+
+        <!--没有权限重定向到url-->
+        <property name="unauthorizedUrl" value="/403"/>
+
+
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="shiroRealm"/>
+        <!--ref="shiroRealm"引用的是service包中的ShiroRealm类（纳入到spring管理，故首字母小写）-->
+
+        <property name="cacheManager" ref="cacheManager"/>
+        <!--编写过程中上面两个ref（引用）写成了value。查了好久才找到错误。-->
+    </bean>
+
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+
+</beans>

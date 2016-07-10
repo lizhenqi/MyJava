@@ -4,4 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kaishengit.mapper.UserLogMapper">
     <cache/>
+    <insert id="save">
+        INSERT into t_user_log(loginip,logintime,userid)
+        VALUES (#{loginip},#{logintime},#{userid})
+    </insert>
+    <select id="findByParam" resultType="UserLog">
+        SELECT t_user_log.*,t_user.username as 'user.username',t_user.realname as 'user.realname' FROM t_user_log
+        INNER JOIN t_user ON t_user.id=userid
+<!--像这种连接查询,要把连接的那个类(外键)作为本类的一个属性（参数）。才能查-->
+        <where>
+            <if test="userid !=null and userid !=''">
+                userid=#{userid}
+            </if>
+        </where>
+        order by t_user_log.id desc
+
+        <if test="start !=null and start !='' and length !=null and length !=''">
+            limit ${start},${length}
+        </if>
+
+    </select>
+    <select id="countByParam" resultType="java.lang.Long">
+            select count(*) from t_user_log
+            <where>
+                <if test="userid !=null and userid !=''">
+                    userid=#{userid}
+                </if>
+            </where>
+    </select>
+
+
 </mapper>

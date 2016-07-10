@@ -12,10 +12,20 @@ public class User implements Serializable {
     private Integer roleid;
     private String username;
     private String password;
+    private String realname;
     private String weixin;
     private Timestamp createtime;
     private Role role;
+    private Boolean enable;
+    
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
 
     public Role getRole() {
         return role;
@@ -71,5 +81,28 @@ public class User implements Serializable {
 
     public void setCreatetime(Timestamp createtime) {
         this.createtime = createtime;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", roleid=" + roleid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", realname='" + realname + '\'' +
+                ", weixin='" + weixin + '\'' +
+                ", createtime=" + createtime +
+                ", role=" + role +
+                ", enable=" + enable +
+                '}';
     }
 }

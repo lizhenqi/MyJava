@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>李振起-测试</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -23,19 +23,45 @@
 <body class="hold-transition login-page" style="background-image: url('/static/dist/img/252976.jpg')">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>凯盛</b>测试</a>
+        <a href="../../index2.html"><b>测试</b><small>版本</small></a>
     </div>
+
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">系统登录</p>
 
-        <form action="../../index2.html" method="post">
+        <c:if test="${not empty message}">
+            <c:choose>
+                <c:when test="${message.state=='success'}">
+                    <div style="text-align: center" class="alert alert-success">
+                            <%--可关闭框--%>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                        <strong>${message.message}</strong>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div style="text-align: center" class="alert alert-danger">
+                            <%--可关闭框--%>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                        <strong>${message.message}</strong>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+
+        <form action="/" method="post">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="用户名">
+                <input type="text" class="form-control" placeholder="用户名" name="username">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="密码">
+                <input type="password" class="form-control" placeholder="密码" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
