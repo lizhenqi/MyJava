@@ -8,6 +8,7 @@
     <select id="findByUsername" resultType="User">
         SELECT *from t_user WHERE username=#{username}
     </select>
+
     <update id="updatePassword">
         UPDATE t_user set password=#{password} where id=#{id}
     </update>
@@ -36,5 +37,10 @@
             </if>
         </where>
     </select>
+
+    <insert id="saveUser" >
+        INSERT into t_user(username,realname,password,roleid,weixin)
+        VALUES(#{username},#{realname},#{password},#{roleid},#{weixin})
+    </insert>
 
 </mapper>

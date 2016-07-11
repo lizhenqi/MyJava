@@ -20,4 +20,6 @@ public interface UserMapper  {
     Long findAllCount();
 
     Long findFilterCount(Map<String, Object> param);
+
+    void saveUser(User user);
 }

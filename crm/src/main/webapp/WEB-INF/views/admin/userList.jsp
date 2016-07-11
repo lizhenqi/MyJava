@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content-header">
             <h1>
                 客户关系管理
-                <small>用户列表</small>
+                <small>员工列表</small>
             </h1>
         </section>
         <!-- Main content -->
@@ -45,8 +45,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <div class="box box-primary">
                 <div class="box box-header">
-                    <div class="box-title" style="text-align: center;">用户管理</div>
-
+                    <div class="box-title " style="margin-left: 40%;color:red">员工管理</div>
+                    <a href="javascript:;" class="btn btn-xs btn-success pull-right" id="newBtn"><i class="icon-plus-sign-alt ">新增</i></a>
                 </div>
 
                 <div class="box-body">
@@ -70,15 +70,57 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </section>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="newModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增员工</h4>
+            </div>
+            <div class="modal-body">
+                <form id="newForm">
+                    <div class="form-group">
+                        <label>账号</label>
+                        <input class="form-control" type="text" name="username">
+                    </div><div class="form-group">
+                        <label>真实姓名</label>
+                        <input class="form-control" type="text" name="realname">
+                    </div><div class="form-group">
+                        <label>密码</label>
+                        <input class="form-control" type="password" name="password">
+                    </div><div class="form-group">
+                        <label>微信号</label>
+                        <input class="form-control" type="text" name="weixin">
+                    </div><div class="form-group">
+                        <label>角色</label>
+                        <input class="form-control" type="text" name="roleid">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="/static/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/dist/js/app.min.js"></script>
 <script src="/static/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/static/plugins/datatables/js/dataTables.bootstrap.js"></script>
 <script src="/static/plugins/moment/moment.js"></script>
+<script src="/static/plugins/validata/jquery.validate.min.js"></script>
 
 <script>
     $(function(){
+
+//        显示列表
         $("#userTable").DataTable({
             "ajax":"/admin/user/list",
             "lengthMenu":[5,10,15],
@@ -128,6 +170,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }
             }
         });
+
+//        新增员工
+        $("#newBtn").click(function(){
+            $("#newForm")[0].reset();
+            $("#newModal").modal({
+                show:true,
+                backdrop:"static",
+                keyboard:false
+            });
+        });
+        $("#newForm").validate({
+            errorClass:"text-danger",
+            errorElement:"span",
+            rules:{
+                username:{
+                    required:true,
+                    rangelength:[2,18]
+                },realname:{
+                    required:true
+                },password:{
+                    required:true,
+                    rangelength:[6,18]
+                },weixin:{
+                    required:true
+                }
+            },
+            messages:{
+                username:{
+                    required:"请输入用户名",
+                    rangelength:"用户名长度2~18位"
+                },realname:{
+                    required:"请输入真实姓名"
+                },password:{
+                    required:"请输入密码",
+                    rangelength:"密码长度6~18位"
+                },weixin:{
+                    required:"请输入微信"
+                }
+            },
+            submitHandler:function(form){
+                $.post("/admin/user/new",$(form).serialize())
+                        .done(function(data){
+                            if(data=="success"){
+                                alert("新增成功");
+                                window.location.href="/admin/user";
+                            }
+                        })
+                        .fail(function(){
+                            alert("新增异常！")
+                        });
+            }
+        });
+        $("#saveBtn").click(function(){
+            $("#newForm").submit();
+        });
+//
+
     });
 </script>
 

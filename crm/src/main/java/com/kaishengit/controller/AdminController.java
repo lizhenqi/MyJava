@@ -28,12 +28,14 @@ public class AdminController {
     private UserService userService;
 
 
+
+//    用户列表
     @RequestMapping(value = "/admin/user",method = RequestMethod.GET)
     public String userList(){
 
         return "/admin/userList";
     }
-
+//ajax回调用户
     @RequestMapping(value = "/admin/user/list",method = RequestMethod.GET)
     @ResponseBody
     public DataTablesResult userTestList(HttpServletRequest request){
@@ -58,6 +60,14 @@ public class AdminController {
         return new DataTablesResult<>(draw,filterCount,userList,count);
     }
 
+
+//    新增用户
+    @RequestMapping(value = "/admin/user/new",method = RequestMethod.POST)
+    @ResponseBody
+    public String userNew(User user){
+        userService.saveUser(user);
+        return "success";
+    }
 
 
 }

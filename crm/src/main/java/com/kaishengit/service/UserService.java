@@ -113,4 +113,12 @@ public class UserService {
     public Long findFilterCount(Map<String, Object> param) {
         return userMapper.findFilterCount(param);
     }
+
+    /**
+     * 新增用户
+     * @param user
+     */
+    public void saveUser(User user) {
+        userMapper.saveUser(user);
+    }
 }
