@@ -40,7 +40,7 @@
                     <a href="#"><i class="icon-cogs"></i> <span>系统管理</span> <i
                             class="icon-caret-right pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class=" icon-user-md" style="margin-left: 30%">员工管理</i></a></li>
+                        <li><a href="/admin/user"><i class=" icon-user-md" style="margin-left: 30%">员工管理</i></a></li>
                         <li><a href="#"><i class=" icon-wrench" style="margin-left: 30%">系统设置</i></a></li>
                     </ul>
                 </li>

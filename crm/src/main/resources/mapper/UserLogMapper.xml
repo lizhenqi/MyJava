@@ -24,6 +24,7 @@
         </if>
 
     </select>
+
     <select id="countByParam" resultType="java.lang.Long">
             select count(*) from t_user_log
             <where>

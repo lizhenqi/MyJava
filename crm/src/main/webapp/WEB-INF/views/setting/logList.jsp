@@ -35,19 +35,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                客户关系系统管理
+                客户关系管理
                 <small >日志列表</small>
             </h1>
         </section>
 
         <!-- Main content -->
         <section class="content">
-            <div class="box-header">
-                <h4 style="text-align: center">日志列表</h4>
-            </div>
-            <div class="box-body">
-                <table class="table" id="logTable">
-                    <thead>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="box-title">
+                        <h4 style="text-align: center">日志列表</h4>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table class="table" id="logTable">
+                        <thead>
                         <tr>
                             <td>ID</td>
                             <td>登录时间</td>
@@ -55,12 +58,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <td>账号</td>
                             <td>真实姓名</td>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
+
+
+
+
+
+
+
         </section>
 
     </div>
@@ -80,6 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            "serverSide": true,//表示所有的操作都在服务端进行
            "searching": false,
            "ajax":"/user/log/list",
+           "autowidth":false,
 
            "columns": [//配置控制器返回的JSON中data属性中数据key和表格列的对应关系
                {"data": "id"},

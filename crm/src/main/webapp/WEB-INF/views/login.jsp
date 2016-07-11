@@ -57,7 +57,8 @@
 
         <form action="/" method="post">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="用户名" name="username">
+                <input type="text" class="form-control" placeholder="用户名" name="username" autofocus>
+                <%--autofocus表示聚焦框内--%>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

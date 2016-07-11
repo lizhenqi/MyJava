@@ -50,7 +50,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="box-body">
                         <div class="form-group">
                             <label >旧密码</label>
-                            <input type="password" class="form-control"  placeholder="请输入旧密码" name="oldPassword">
+                            <input type="password" class="form-control"  placeholder="请输入旧密码" name="oldPassword" autofocus>
+                            <%--autofocus表示聚焦框内--%>
                         </div>
                         <div class="form-group">
                             <label >新密码</label>

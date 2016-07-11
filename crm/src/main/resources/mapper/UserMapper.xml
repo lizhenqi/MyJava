@@ -11,4 +11,30 @@
     <update id="updatePassword">
         UPDATE t_user set password=#{password} where id=#{id}
     </update>
+
+    <select id="findAllUserByParam" resultType="User">
+        SELECT t_user.*,t_role.rolename AS 'role.rolename' from t_user
+        INNER JOIN t_role ON t_user.roleid=t_role.id
+        <where>
+            <if test="keyword !=null and keyword !=''">
+                username LIKE concat('%',#{keyword},'%') or realname LIKE concat('%',#{keyword},'%')
+            </if>
+        </where>
+        order by t_user.id desc
+        limit ${start},${length}
+    </select>
+
+    <select id="findAllCount" resultType="java.lang.Long">
+        select count(*) from t_user;
+    </select>
+
+    <select id="findFilterCount" resultType="java.lang.Long">
+        select count(*) from t_user
+        <where>
+            <if test="keyword !=null and keyword !=''">
+                username LIKE concat('%',#{keyword},'%') or realname LIKE concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+
 </mapper>
