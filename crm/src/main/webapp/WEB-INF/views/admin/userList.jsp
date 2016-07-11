@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <!--
@@ -29,8 +30,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-    <%@include file="../include/header.jsp"%>
-    <%@include file="../include/leftSide.jsp"%>
+    <%@include file="../include/header.jsp" %>
+    <%@include file="../include/leftSide.jsp" %>
 
 
     <div class="content-wrapper">
@@ -46,22 +47,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box box-primary">
                 <div class="box box-header">
                     <div class="box-title " style="margin-left: 40%;color:red">员工管理</div>
-                    <a href="javascript:;" class="btn btn-xs btn-success pull-right" id="newBtn"><i class="icon-plus-sign-alt ">新增</i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-success pull-right" id="newBtn"><i
+                            class=" icon-plus ">新增</i></a>
                 </div>
 
                 <div class="box-body">
                     <table class="table" id="userTable">
                         <thead>
-                            <tr>
-                               <th>ID</th>
-                               <th>账号</th>
-                               <th>真实姓名</th>
-                               <th>微信号</th>
-                               <th>角色</th>
-                               <th>状态</th>
-                               <th>创建时间</th>
-                               <th>操作</th>
-                            </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>账号</th>
+                            <th>真实姓名</th>
+                            <th>微信号</th>
+                            <th>角色</th>
+                            <th>状态</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -76,7 +78,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">新增员工</h4>
             </div>
             <div class="modal-body">
@@ -84,18 +87,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                         <label>账号</label>
                         <input class="form-control" type="text" name="username">
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <label>真实姓名</label>
                         <input class="form-control" type="text" name="realname">
-                    </div><div class="form-group">
-                        <label>密码</label>
-                        <input class="form-control" type="password" name="password">
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <label>密码(默认"666666")</label>
+                        <input class="form-control" type="password" name="password" value="666666">
+                    </div>
+                    <div class="form-group">
                         <label>微信号</label>
                         <input class="form-control" type="text" name="weixin">
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <label>角色</label>
-                        <input class="form-control" type="text" name="roleid">
+                        <select class="form-control" name="roleid">
+                            <c:forEach items="${roleList}" var="role">
+                                <option value="${role.id}">${role.rolename}</option>
+                                <%--上面的value就相当于输入的值--%>
+                            </c:forEach>
+                        </select>
                     </div>
                 </form>
             </div>
@@ -108,7 +120,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 
 
-
 <script src="/static/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/dist/js/app.min.js"></script>
@@ -118,38 +129,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/plugins/validata/jquery.validate.min.js"></script>
 
 <script>
-    $(function(){
+    $(function () {
 
 //        显示列表
-        $("#userTable").DataTable({
-            "ajax":"/admin/user/list",
-            "lengthMenu":[5,10,15],
-            "serverSide":true,
-            "autowidth":false,
+        var dataTable=$("#userTable").DataTable({
+            "ajax": "/admin/user/list",
+            "lengthMenu": [5, 10, 15],
+            "serverSide": true,
+            "autowidth": false,
 
-            "columns":[
-                {"data":"id"},
-                {"data":"username"},
-                {"data":"realname"},
-                {"data":"weixin"},
-                {"data":"role.rolename"},
-                {"data":function(row){
-                    if(row.enable){
-                        return"<span class='label label-success'>正常</span>"
-                    }else{
-                        return"<span class='label label-danger'>禁用</span>"
+            "columns": [
+                {"data": "id"},
+                {"data": "username"},
+                {"data": "realname"},
+                {"data": "weixin"},
+                {"data": "role.rolename"},
+                {
+                    "data": function (row) {
+                        if (row.enable) {
+                            return "<span class='label label-success'>正常</span>"
+                        } else {
+                            return "<span class='label label-danger'>禁用</span>"
+                        }
                     }
-                }},
-                {"data":function(row){
-                    var timestamp=row.createtime;
-                    var day=moment(timestamp);
-                    return day.format("YYYY-MM-DD HH:mm:ss")
-                }},
-                {"data":function(row){
-                    return "";
-                }}
+                },
+                {
+                    "data": function (row) {
+                        var timestamp = row.createtime;
+                        var day = moment(timestamp);
+                        return day.format("YYYY-MM-DD HH:mm:ss")
+                    }
+                },
+                {
+                    "data": function (row) {
+                        return "";
+                    }
+                }
             ],
-            "language":{
+            "language": {
                 "search": "搜索",//
                 searchPlaceholder: "请输入账号或真实姓名...",
                 "zeroRecords": "没有查询到记录！",
@@ -162,67 +179,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "lengthMenu": "选择显示 _MENU_ 条记录",//右上角选择显示记录数
                 "infoFiltered": "(从 _MAX_ 条数据过滤)",//查询时候显示从多少数据中查询的
 
-                "paginate":{
-                    "first":"首页",
-                    "last":"末页",
-                    "next":"下一页",
-                    "previous":"上一页"
+                "paginate": {
+                    "first": "首页",
+                    "last": "末页",
+                    "next": "下一页",
+                    "previous": "上一页"
                 }
             }
         });
 
 //        新增员工
-        $("#newBtn").click(function(){
-            $("#newForm")[0].reset();
+        $("#newBtn").click(function () {
+            $("#newForm")[0].reset();//弹出来的时候清空框内记忆
             $("#newModal").modal({
-                show:true,
-                backdrop:"static",
-                keyboard:false
+                show: true,//显示
+                backdrop: "static",//一直显示，如果不加，点击旁边就会隐藏
+                keyboard: false//表示esc键将不能用于退出
             });
         });
         $("#newForm").validate({
-            errorClass:"text-danger",
-            errorElement:"span",
-            rules:{
-                username:{
-                    required:true,
-                    rangelength:[2,18]
-                },realname:{
-                    required:true
-                },password:{
-                    required:true,
-                    rangelength:[6,18]
-                },weixin:{
-                    required:true
+            errorClass: "text-danger",
+            errorElement: "span",
+            rules: {
+                username: {
+                    required: true,
+                    rangelength: [2, 18],
+                    remote:"/admin/user/checkusername"
+                }, realname: {
+                    required: true
+                }, password: {
+                    required: true,
+                    rangelength: [6, 18]
+                }, weixin: {
+                    required: true
                 }
             },
-            messages:{
-                username:{
-                    required:"请输入用户名",
-                    rangelength:"用户名长度2~18位"
-                },realname:{
-                    required:"请输入真实姓名"
-                },password:{
-                    required:"请输入密码",
-                    rangelength:"密码长度6~18位"
-                },weixin:{
-                    required:"请输入微信"
+            messages: {
+                username: {
+                    required: "请输入用户名",
+                    rangelength: "用户名长度2~18位",
+                    remote:"该账号已经注册,请重新输入！"
+                }, realname: {
+                    required: "请输入真实姓名"
+                }, password: {
+                    required: "请输入密码",
+                    rangelength: "密码长度6~18位"
+                }, weixin: {
+                    required: "请输入微信"
                 }
             },
-            submitHandler:function(form){
-                $.post("/admin/user/new",$(form).serialize())
-                        .done(function(data){
-                            if(data=="success"){
+            submitHandler: function (form) {
+                $.post("/admin/user/new", $(form).serialize())
+                        .done(function (data) {
+                            if (data == "success") {
                                 alert("新增成功");
-                                window.location.href="/admin/user";
+
+                                $("#newModal").modal("hide");
+                                dataTable.ajax.reload();//刷新
+
+//                              window.location.href = "/admin/user";//用这一句就相当于上面两句刷新加隐藏（间接）,不过没有动画效果
                             }
                         })
-                        .fail(function(){
-                            alert("新增异常！")
+                        .fail(function () {
+                            alert("新增异常！");
+                            window.location.href = "/admin/user";
                         });
             }
         });
-        $("#saveBtn").click(function(){
+        $("#saveBtn").click(function () {
             $("#newForm").submit();
         });
 //

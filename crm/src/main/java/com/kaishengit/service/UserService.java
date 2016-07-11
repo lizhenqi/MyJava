@@ -10,6 +10,7 @@ import com.kaishengit.pojo.UserLog;
 import com.kaishengit.util.ShiroUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -89,7 +90,7 @@ public class UserService {
 
 
     /**
-     * 根据参数获取用户
+     * 根据查询参数获取用户
      * @return
      * @param param
      */
@@ -118,7 +119,20 @@ public class UserService {
      * 新增用户
      * @param user
      */
+
+    @Transactional
     public void saveUser(User user) {
+
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         userMapper.saveUser(user);
+    }
+
+
+    /**
+     * 查询所有Role
+     * @return
+     */
+    public List<Role> findAllRole() {
+        return roleMapper.findAllRole();
     }
 }

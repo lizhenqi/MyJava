@@ -8,4 +8,9 @@
     <select id="findById" resultType="Role">
         SELECT *FROM t_role WHERE id=#{roleid}
     </select>
+
+    <!--查询所有Role-->
+    <select id="findAllRole" resultType="Role">
+        SELECT *from t_role
+    </select>
 </mapper>

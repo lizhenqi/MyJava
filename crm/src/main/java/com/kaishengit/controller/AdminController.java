@@ -3,10 +3,12 @@ package com.kaishengit.controller;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
+import com.kaishengit.pojo.Role;
 import com.kaishengit.pojo.User;
 import com.kaishengit.service.UserService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +33,14 @@ public class AdminController {
 
 //    用户列表
     @RequestMapping(value = "/admin/user",method = RequestMethod.GET)
-    public String userList(){
+    public String userList(Model model){
+//      Model向视图里面写入，而@ResponseBody向js里面写入
 
+        List<Role> roleList=userService.findAllRole();
+        model.addAttribute("roleList",roleList);
         return "/admin/userList";
     }
+
 //ajax回调用户
     @RequestMapping(value = "/admin/user/list",method = RequestMethod.GET)
     @ResponseBody
@@ -44,6 +50,8 @@ public class AdminController {
         String draw=request.getParameter("draw");
         String length=request.getParameter("length");
         String keyword=request.getParameter("search[value]");
+
+//        下面要转码，否则中文搜索就是乱码
         keyword= Strings.toUTF8(keyword);
 
         Map<String ,Object> param= Maps.newHashMap();
@@ -65,9 +73,23 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/new",method = RequestMethod.POST)
     @ResponseBody
     public String userNew(User user){
+
         userService.saveUser(user);
         return "success";
     }
 
-
+    /**
+     * 验证账号是否可注册（就是查询是否存在）
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "/admin/user/checkusername",method = RequestMethod.GET)
+    @ResponseBody
+    public String userCheckUsername(String username){
+        User user=userService.findUserByUsername(username);
+        if(user !=null){
+            return "false";
+        }
+        return "true";
+    }
 }
