@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 },
                 {
                     "data": function (row) {
-                        return "";
+                        return "<a href='javascript:;' class='setPwd' rel='"+row.id+"'>重置密码</a>";
                     }
                 }
             ],
@@ -249,7 +249,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#saveBtn").click(function () {
             $("#newForm").submit();
         });
-//
+//  重置密码
+        $(document).delegate(".setPwd","click",function(){
+           var id=$(this).attr("rel");
+            if(confirm("确定把密码重置为“666666”")){
+                $.post("/admin/user/setPwd",{"id":id})
+                        .done(function(data){
+                           if(data=="success"){
+                               alert("重置密码成功！");
+                               dataTable.ajax.reload();
+                           }
+                        })
+                        .fail(function(){
+                            alert("重置密码异常！");
+                            dataTable.ajax.reload();
+                        })
+            }
+        });
 
     });
 </script>

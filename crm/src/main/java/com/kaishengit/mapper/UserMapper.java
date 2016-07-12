@@ -22,4 +22,8 @@ public interface UserMapper  {
     Long findFilterCount(Map<String, Object> param);
 
     void saveUser(User user);
+
+    User findUserById(Integer id);
+
+    void updateUserPwd(User user);
 }

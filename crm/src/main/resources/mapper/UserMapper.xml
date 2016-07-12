@@ -43,4 +43,13 @@
         VALUES(#{username},#{realname},#{password},#{roleid},#{weixin})
     </insert>
 
+    <select id="findUserById" resultType="User">
+        SELECT * from t_user where id=#{id}
+    </select>
+
+    <update id="updateUserPwd">
+        UPDATE t_user SET password=#{password} where id=#{id}
+    </update>
+
+
 </mapper>

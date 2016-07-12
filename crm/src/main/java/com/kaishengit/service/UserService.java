@@ -135,4 +135,17 @@ public class UserService {
     public List<Role> findAllRole() {
         return roleMapper.findAllRole();
     }
+
+
+    /**
+     * 重置用户密码
+     * @param id
+     */
+    public void updateUserPwd(Integer id) {
+        User user=userMapper.findUserById(id);
+        if(user!=null){
+           user.setPassword(DigestUtils.md5Hex("666666"));
+        }
+        userMapper.updateUserPwd(user);
+    }
 }
