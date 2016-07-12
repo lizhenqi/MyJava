@@ -1,8 +1,12 @@
 package com.kaishengit.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by Administrator on 2016/7/12.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+//排除掉为null的，这样的话当message或是data为null时候就会不用显示了
 public class JsonResult {
 
     public static final String SUCCESS="success";

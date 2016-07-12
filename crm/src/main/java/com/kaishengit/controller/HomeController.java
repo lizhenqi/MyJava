@@ -4,6 +4,7 @@ package com.kaishengit.controller;
 import com.kaishengit.dto.FlashMessage;
 import com.kaishengit.service.UserService;
 import com.kaishengit.util.ServletUtil;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -84,11 +85,21 @@ public class HomeController {
         return "redirect:/";
     }
 
-
-
-
+    /**
+     * home界面
+     * @return
+     */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home() {
         return "home";
+    }
+
+    /**
+     * 403错误页面
+     * @return
+     */
+    @RequestMapping(value = "/403",method = RequestMethod.GET)
+    public String error403(){
+        return "error/403";
     }
 }

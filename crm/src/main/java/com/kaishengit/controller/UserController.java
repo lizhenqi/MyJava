@@ -64,11 +64,20 @@ public class UserController {
         }
     }
 
+    /**
+     * 去loglist的界面
+     * @return
+     */
     @RequestMapping(value = "/user/log", method = RequestMethod.GET)
     public String lookLog() {
         return "setting/logList";
     }
 
+    /**
+     * ajax异步回调loglist
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/user/log/list", method = RequestMethod.GET)
     @ResponseBody
     public DataTablesResult lookLogList(HttpServletRequest request) {

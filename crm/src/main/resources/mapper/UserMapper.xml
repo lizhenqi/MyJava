@@ -38,7 +38,7 @@
         </where>
     </select>
 
-    <insert id="saveUser" >
+    <insert id="saveUser">
         INSERT into t_user(username,realname,password,roleid,weixin)
         VALUES(#{username},#{realname},#{password},#{roleid},#{weixin})
     </insert>
@@ -52,7 +52,21 @@
     </update>
 
     <update id="userEdit">
-        UPDATE t_user SET realname=#{realname},roleid=#{roleid},weixin=#{weixin},enable=#{enable} where id=#{id}
+        UPDATE t_user
+        <set>
+            <if test="realname !=null and realname !=''">
+                realname=#{realname},
+            </if>
+            <if test="realname !=null and realname !=''">
+                roleid=#{roleid},
+            </if>
+            <if test="realname !=null and realname !=''">
+                weixin=#{weixin},
+            </if>
+                enable=#{enable}
+            <!--enable=#{enable}。boolean不用判断否则不能修改-->
+        </set>
+        where id=#{id}
     </update>
 
 </mapper>

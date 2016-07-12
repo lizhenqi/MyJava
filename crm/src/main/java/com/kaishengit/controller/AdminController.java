@@ -119,7 +119,7 @@ public class AdminController {
 
 
     /**
-     * 根据用户id显示json
+     * 根据用户id显示json（用于编辑时候自动填充）
      * @param id
      * @return
      */
