@@ -51,5 +51,8 @@
         UPDATE t_user SET password=#{password} where id=#{id}
     </update>
 
+    <update id="userEdit">
+        UPDATE t_user SET realname=#{realname},roleid=#{roleid},weixin=#{weixin},enable=#{enable} where id=#{id}
+    </update>
 
 </mapper>

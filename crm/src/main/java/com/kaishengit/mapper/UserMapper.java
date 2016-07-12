@@ -26,4 +26,6 @@ public interface UserMapper  {
     User findUserById(Integer id);
 
     void updateUserPwd(User user);
+
+    void userEdit(User user);
 }

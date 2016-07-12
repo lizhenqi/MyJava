@@ -8,6 +8,7 @@ import com.kaishengit.pojo.Role;
 import com.kaishengit.pojo.User;
 import com.kaishengit.pojo.UserLog;
 import com.kaishengit.util.ShiroUtil;
+import com.kaishengit.util.Strings;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
@@ -147,5 +148,19 @@ public class UserService {
            user.setPassword(DigestUtils.md5Hex("666666"));
         }
         userMapper.updateUserPwd(user);
+    }
+
+    public User findUserById(Integer id) {
+        return userMapper.findUserById(id);
+    }
+
+
+    /**
+     * 修改用户信息
+     * @param user
+     */
+    public void userEdit(User user) {
+        userMapper.userEdit(user);
+
     }
 }

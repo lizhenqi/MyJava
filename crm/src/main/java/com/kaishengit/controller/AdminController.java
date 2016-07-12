@@ -3,14 +3,15 @@ package com.kaishengit.controller;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
+import com.kaishengit.dto.JsonResult;
+import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Role;
 import com.kaishengit.pojo.User;
 import com.kaishengit.service.UserService;
-import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,7 +85,6 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/new",method = RequestMethod.POST)
     @ResponseBody
     public String userNew(User user){
-
         userService.saveUser(user);
         return "success";
     }
@@ -97,11 +97,12 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/checkusername",method = RequestMethod.GET)
     @ResponseBody
     public String userCheckUsername(String username){
+        username=Strings.toUTF8(username);
         User user=userService.findUserByUsername(username);
-        if(user !=null){
-            return "false";
+        if(user==null){
+            return "true";
         }
-        return "true";
+        return "false";
     }
 
     /**
@@ -115,4 +116,41 @@ public class AdminController {
         userService.updateUserPwd(id);
         return "success";
     }
+
+
+    /**
+     * 根据用户id显示json
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/admin/user/{id:\\d+}.json",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult userShow(@PathVariable Integer id){
+        User user=userService.findUserById(id);
+        if(user!=null){
+//            return new JsonResult(JsonResult.SUCCESS,user);
+            //像这种判断型的返回的。最好都封装了，调用时候成功的返回对应数据（Object）,失败的返回错误信息
+
+            return new JsonResult(user);//是上面的简写形式（在JsonResult里面优化了）
+        }else {
+//            return new JsonResult(JsonResult.ERROR,"找不到"+id+"对应的用户");
+            return new JsonResult("找不到"+id+"对应的用户");
+        }
+    }
+
+
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/admin/user/edit",method = RequestMethod.POST)
+    @ResponseBody
+    public String userEdit(User user){
+        userService.userEdit(user);
+        return "success";
+    }
+
+
+
 }
