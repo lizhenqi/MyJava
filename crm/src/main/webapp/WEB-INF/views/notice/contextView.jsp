@@ -3,10 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--注意导入的是jsp/jstl.不是直接jstl下的fmt--%>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+
+
 <html>
 <head>
     <meta charset="utf-8">
