@@ -29,7 +29,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
     <%@include file="include/header.jsp"%>
-    <%@include file="include/leftSide.jsp"%>
+    <%--<%@include file="include/leftSide.jsp"%>--%>
+    <jsp:include page="include/leftSide.jsp">
+        <jsp:param name="menu" value="home"/>
+    </jsp:include>
     
     
     <div class="content-wrapper">

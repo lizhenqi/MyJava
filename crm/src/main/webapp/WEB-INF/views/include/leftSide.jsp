@@ -25,8 +25,8 @@
 
             <%--多个权限之间用逗号分开--%>
             <shiro:hasAnyRoles name="管理员,经理,员工">
-                <li class="active"><a href="#"><i class=" icon-eye-open"></i> <span>首页</span></a></li>
-                <li><a href="#"><i class=" icon-volume-up"></i> <span>公告</span></a></li>
+                <li class="${param.menu=="home"?"active":''}"><a href="/home"><i class=" icon-eye-open"></i> <span>首页</span></a></li>
+                <li class="${param.menu=="notice"?"active":''}"><a href="/notice"><i class=" icon-volume-up"></i> <span>公告</span></a></li>
                 <li><a href="#"><i class=" icon-bookmark"></i> <span>项目管理</span></a></li>
                 <li><a href="#"><i class=" icon-group"></i> <span>客户管理</span></a></li>
                 <li><a href="#"><i class="icon-align-left"></i> <span>统计</span></a></li>
@@ -40,7 +40,7 @@
                     <a href="#"><i class="icon-cogs"></i> <span>系统管理</span> <i
                             class="icon-caret-right pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="/admin/user"><i class=" icon-user-md" style="margin-left: 30%">员工管理</i></a></li>
+                        <li class="${param.menu=="user"?"active":''}"><a href="/admin/user"><i class=" icon-user-md" style="margin-left: 30%">员工管理</i></a></li>
                         <li><a href="#"><i class=" icon-wrench" style="margin-left: 30%">系统设置</i></a></li>
                     </ul>
                 </li>

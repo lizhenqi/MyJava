@@ -38,6 +38,7 @@ public class UserService {
         userlog.setLogintime(DateTime.now().toString("yyyy:MM:dd HH:mm"));
         userlog.setUserid(ShiroUtil.getCurrentUserId());
         userLogMapper.save(userlog);
+
     }
 
     public Role findRoleById(Integer roleid) {
