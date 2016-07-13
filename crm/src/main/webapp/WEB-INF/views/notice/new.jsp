@@ -91,6 +91,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 //       simditor编辑器
         var editor = new Simditor({
             textarea: $('#context'),
+            placeholder:"请输入公告",
+//           uplpad要求有一下内容，前两个是必须的
+            upload:{
+                url:"/notice/img/upload",
+                fileKey:"file"//(K大写)注意file这个名字要和接收的：MultipartFile uploadFile名字一样。
+//                connectionCount:10,
+//                leaveConfirm:"正在上传，确定离开？"
+            }
 
         });
 
