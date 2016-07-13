@@ -14,7 +14,11 @@
     <context:component-scan base-package="com.kaishengit.controller"/>
 
     <!--基于注解的Controller-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <!--1：url中支持带.的path变量（例如图片上传时候不加这它是默认把"点"后面的后缀去掉的 ）-->
+        <!--第二种解决办法2：直接 @RequestMapping(value = "/preview/{fileName：.+}")-->
+        <mvc:path-matching registered-suffixes-only="true"/>
+    </mvc:annotation-driven>
 
     <!--静态资源-->
     <mvc:resources mapping="/static/**" location="/static/">

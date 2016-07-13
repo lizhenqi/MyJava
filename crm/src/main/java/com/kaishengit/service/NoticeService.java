@@ -83,8 +83,8 @@ public class NoticeService {
      * @param fileName
      */
     public String saveImage(InputStream inputStream, String fileName) throws IOException {
-//        String exName=fileName.substring(fileName.lastIndexOf("."));
-        String newFileName= UUID.randomUUID().toString();//+exName;
+        String exName=fileName.substring(fileName.lastIndexOf("."));
+        String newFileName= UUID.randomUUID().toString()+exName;
 
         FileOutputStream outputStream=new FileOutputStream(new File(imageSavePath,newFileName));
         IOUtils.copy(inputStream,outputStream);
