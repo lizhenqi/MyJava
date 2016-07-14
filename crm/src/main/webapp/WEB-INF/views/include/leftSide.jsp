@@ -31,7 +31,7 @@
                 <li><a href="#"><i class=" icon-group"></i> <span>客户管理</span></a></li>
                 <li><a href="#"><i class="icon-align-left"></i> <span>统计</span></a></li>
                 <li><a href="#"><i class=" icon-bell"></i> <span>代办事项</span></a></li>
-                <li><a href="#"><i class=" icon-folder-open-alt"></i> <span>文档管理</span></a></li>
+                <li class="${param.menu=="doc"?"active":''}"><a href="/doc"><i class=" icon-folder-open-alt"></i> <span>文档管理</span></a></li>
             </shiro:hasAnyRoles>
             <%--设置为只有管理员才能看到以下部分--%>
             <%--下面的name根据ShiroRoleam里面的PrincipalCollection，返回的用户角色判定如果是name里面的角色则能查看--%>

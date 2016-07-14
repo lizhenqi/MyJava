@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaishengit.mapper.DocumentMapper">
+    <cache/>
+
+
+
+    <select id="findByFid" resultType="com.kaishengit.pojo.Document">
+        SELECT *from t_document WHERE fid=#{fid} order by id desc
+    </select>
+
+<!--保存文件夹-->
+    <insert id="save">
+        INSERT INTO t_document(name, `size`, createuser, type, filename, md5, fid,contexttype)
+         VALUES (#{name},#{size},#{createuser},#{type},#{filename},#{md5},#{fid},#{contexttype})
+    </insert>
+
+    <select id="findById" resultType="Document">
+        SELECT *from t_document WHERE id=#{id}
+    </select>
+
+
+</mapper>
