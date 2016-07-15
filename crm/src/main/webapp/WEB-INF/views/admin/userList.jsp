@@ -216,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     "data": function (row) {
                         var timestamp = row.createtime;
                         var day = moment(timestamp);
-                        return day.format("YYYY-MM-DD HH:mm:ss")
+                        return day.format("YYYY-MM-DD HH:mm")
                     }
                 },
                 {
