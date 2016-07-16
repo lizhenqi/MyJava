@@ -59,7 +59,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table class="table" id="customerTable">
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th>ID</th>
+                            <th>类型</th>
                             <th>客户名称</th>
                             <th>联系电话</th>
                             <th>电子邮件</th>
@@ -164,8 +165,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             "serverSide": true,
             "lengthMenu": [5, 10, 15],
             "autowidth": false,
-            searching: false,
             "columns":[
+
+                {"data":"id"},
                 {"data":function(row){
                     if(row.type=="company"){
                         return "<i class='icon-group'></i>";
@@ -180,7 +182,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }},
                 {"data":"tel"},
                 {"data":"email"},
-                {"data":"level"},
+                {"data":function(row){
+                    return "<i style='color:green'>"+row.level+"</i>";
+                }},
 
                 {"data":function(row){
                     var time=moment(row.createtime);
@@ -188,13 +192,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }},
 
                 {"data":function(row){
-                    return "操作";
+                    //注意
+
+                    return <shiro:hasRole name="管理员">"<a href='javascript:;' rel='"+row.id+"' class='del'>删除</a>"+</shiro:hasRole>"<a href='javascript:;' rel='"+row.id+"' class='edit'>编辑</a>";
+
+
                 }}
             ],
 
             "language": {
                 "search": "搜索",//
-                searchPlaceholder: "客户/电话/等级...(只能看自己的)",//这个待定
+                searchPlaceholder: "请输入客户/电话...",
                 "zeroRecords": "没有查询到记录！",
                 "infoEmpty": "0条记录！",//这个和上面的是在一个界面显示
 
@@ -219,6 +227,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 //        新建customer（点击新建模态框显示）
         $("#newCustomer").click(function(){
             $("#newForm")[0].reset();//清空框内记忆
+
+            dataTable.ajax.reload();
+
             $("#customerModal").modal({
                 show:true,
                 backdrop:"static",
@@ -281,6 +292,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#saveBtn").click(function(){
             $("#newForm").submit();
         });
+
+
+        <shiro:hasRole name="管理员">
+             //删除，
+             $(document).delegate(".del","click",function(){
+                 if(confirm("确认删除?")){
+                    var id=$(this).attr("rel");
+                     $.get("/customer/del/"+id).done(function(data){
+                         if(data=="success"){
+                             alert("删除成功");
+                             dataTable.ajax.reload();
+                         }
+                     }).fail(function(){
+                         alert("删除失败");
+                     });
+                 }
+             });
+        </shiro:hasRole>
 
 
 

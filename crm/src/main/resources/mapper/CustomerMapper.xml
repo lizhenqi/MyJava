@@ -11,6 +11,10 @@
         <where>
             <if test="userid !=null and userid !=''">
                 userid=#{userid} or (userid is null or userid='')
+                <!--自己的客户和公共客户-->
+            </if>
+            <if test="keyword !=null and keyword !=''">
+              and (name like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%') or  pinyin like concat('%',#{keyword},'%'))
             </if>
         </where>
         order by id desc
@@ -29,6 +33,9 @@
             <if test="userid !=null and userid !=''">
                 userid=#{userid} or (userid is null or userid='')
             </if>
+            <if test="keyword !=null and keyword !=''">
+                and (name like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%') or  pinyin like concat('%',#{keyword},'%'))
+            </if>
         </where>
     </select>
 
@@ -45,5 +52,18 @@
         INSERT into t_customer(name,tel,address,weixin,email,pinyin,companyID,companyname,level,type,userid)
         VALUES (#{name},#{tel},#{address},#{weixin},#{email},#{pinyin},#{companyID},#{companyname},#{level},#{type},#{userid})
     </insert>
+
+    <delete id="delCustomer">
+        delete from t_customer where id=#{id}
+    </delete>
+
+    <!--查所有companyID=id的客户-->
+    <select id="findByCompanyId" resultType="Customer">
+        SELECT *from t_customer where companyID=#{id}
+    </select>
+
+    <update id="update">
+        UPDATE t_customer set companyID=#{companyID},companyname=#{companyname} where id=#{id}
+    </update>
 
 </mapper>

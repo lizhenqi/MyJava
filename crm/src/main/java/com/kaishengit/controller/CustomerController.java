@@ -7,6 +7,7 @@ import com.kaishengit.service.CustomerService;
 import com.kaishengit.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,7 @@ import java.util.Map;
  */
 
 @Controller
-public class CustoomerController {
+public class CustomerController {
     @Inject
     private CustomerService customerService;
 
@@ -30,7 +31,7 @@ public class CustoomerController {
      * 列表
      * @return
      */
-    @RequestMapping(value = "customer", method = RequestMethod.GET)
+    @RequestMapping(value = "/customer", method = RequestMethod.GET)
     public String customerList(Model model) {
         List<Customer> customerList=customerService.findAllCompany();
 //      //查询所有为公司的客户
@@ -42,7 +43,7 @@ public class CustoomerController {
      * 异步回调
      * @return
      */
-    @RequestMapping(value = "customer/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/customer/list", method = RequestMethod.GET)
     @ResponseBody
     public DataTablesResult<Customer> customerShowList(HttpServletRequest request) {
 
@@ -50,12 +51,12 @@ public class CustoomerController {
         String length=request.getParameter("length");
         String start=request.getParameter("start");
         String keyword=request.getParameter("search[value]");
-//        keyword= Strings.toUTF8(keyword);本需求目前不搜索，而且本人只能看自己的客户和公共客户
 
+        keyword= Strings.toUTF8(keyword);
         Map<String,Object> param= Maps.newHashMap();
         param.put("length",length);
         param.put("start",start);
-//        param.put("keyword",keyword);
+        param.put("keyword",keyword);
 
         List<Customer> customerList=customerService.findCustomerByParam(param);
         Long count=customerService.findCount();
@@ -74,6 +75,19 @@ public class CustoomerController {
     public String saveCustomer(Customer customer){
 
         customerService.saveCustomer(customer);
+        return "success";
+    }
+
+
+    /**
+     * 删除客户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/customer/del/{id:\\d+}",method = RequestMethod.GET)
+    @ResponseBody
+    public String del(@PathVariable Integer id){
+        customerService.delCustomerById(id);
         return "success";
     }
 

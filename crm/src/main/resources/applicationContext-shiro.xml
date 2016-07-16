@@ -21,7 +21,7 @@
 
                 /admin/**=roles[管理员]
                 /notice/new=roles[管理员]
-
+                /customer/del/**=roles[管理员]
 
                 <!--/**表示/下的所有目录-->
                 /**=authc
