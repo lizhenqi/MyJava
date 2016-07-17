@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="box box-info " >
+                    <div class="box box-info collapsed-box" >
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
                             <div class="box-title" ><i class=" icon-zoom-in"></i>生成电子名片</div>
                             <div class="box-tools pull-right">
