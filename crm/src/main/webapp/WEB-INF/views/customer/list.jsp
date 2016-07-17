@@ -48,8 +48,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content">
 
             <div class="box box-primary">
-                <div class="box box-header">
-                    <h3 class="box-title ">客户管理</h3>
+                <div class="box-header" style="text-align: center;color: mediumvioletred">
+                    <h3 class="box-title " >客户管理</h3>
                     <div class="box-tools">
                         <%--这个"box-tools"使其靠右边--%>
                         <button class="btn btn-xs btn-success " id="newCustomer"><i class="icon-user"></i>新建客户</button>
@@ -71,6 +71,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </thead>
                         <tbody></tbody>
                     </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
+                            <div class="box-title" ><i class="icon-th-list"></i>项目列表</div>
+                        </div>
+                        <div class="box-body">
+                            <h6>暂无项目</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
+                            <div class="box-title" ><i class="icon-bell"></i>待办事项</div>
+                        </div>
+                        <div class="box-body">
+                            <h6>暂无项目</h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -206,6 +228,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <button type="button" class="btn btn-primary" id="editBtn">保存</button>
             </div>
         </div>
+
+
     </div>
 </div>
 
@@ -243,9 +267,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {
                     "data": function (row) {
                         if (row.companyname) {
-                            return row.name + "->" + row.companyname;
+                            return "<a href='/customer/view/"+row.id+"'>"+row.name+"</a>"
+                                    +"<a href='/customer/view/"+row.companyID+"'><label style='color: red'>∈</label>" + row.companyname+"</a>";
                         }
-                        return row.name;
+                        return "<a href='/customer/view/"+row.id+"'>"+row.name+"</a>";
                     }
                 },
                 {"data": "tel"},

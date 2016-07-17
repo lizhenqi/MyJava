@@ -18,7 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/static/plugins/Font-Awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">--%>
     <!-- Theme style -->
     <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
 
@@ -43,6 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 客户关系管理
                 <small>文档列表</small>
             </h1>
+
         </section>
         <!-- Main content -->
         <section class="content">
@@ -52,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <h3 class="box-title ">文档管理-${fid}</h3>
                     <div class="box-tools">
                         <%--这个"box-tools"使其靠右边--%>
-                        <button class="btn btn-xs btn-success " id="newDir"><i class=" icon-folder-open-alt"></i>新建文件夹</button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-success " id="newDir"><i class=" icon-folder-open-alt"></i>新建文件夹</button>
                         <span id="uploadBtn"><span class="text"><i class="icon-cloud-upload">上传文档</i></span></span>
                     </div>
                 </div>
@@ -141,8 +142,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
     $(function () {
 
-
-
         //文件上传
         var uploader = WebUploader.create({
             // swf文件路径
@@ -165,7 +164,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             pick:"#uploadBtn",
 
             // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-            resize: false
+//            resize: false
         });
 
         //文件上传时的状态
@@ -181,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             if(data._raw=="success"){
 
                 window.history.go(0);//表示后退和前进一次
-//                window.location.href="/doc";这个当刷新用也行
+//                window.location.href="/doc";这个当刷新用会有页面刷新的感觉。
             }
         });
 

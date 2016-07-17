@@ -116,12 +116,12 @@ public class CustomerService {
     @Transactional
     public void updateCompany(Customer customer) {
 
-        //如果为公司，找到关联客户并修改其关联公司名称
+        //如果为公司，找到关联客户并修改其关联公司名称(要注意区分查找的id还是companyID)
         if(customer.getType().equals(Customer.CUSTOMER_TYPE_COMPANY)){
-            List<Customer> customerList=findCustomerBycompantId(customer.getCompanyID());
+            List<Customer> customerList=findCustomerBycompantId(customer.getId());
             for(Customer msg:customerList){
-                msg.setCompanyID(customer.getCompanyID());
-                msg.setCompanyname(customer.getCompanyname());
+                msg.setCompanyID(customer.getId());
+                msg.setCompanyname(customer.getName());
                 customerMapper.updateCompany(msg);
             }
         }else{
@@ -136,15 +136,46 @@ public class CustomerService {
         customerMapper.updateCompany(customer);
     }
 
+
     /**
-     * 根据公companyID查询所有客户
-     * @param companyID
+     * 查找所有companyID为id的客户
+     * @param id
      * @return
      */
-    private List<Customer> findCustomerBycompantId(Integer companyID) {
-        return customerMapper.findCustomerBycompantId(companyID);
+    public List<Customer> findCustomerBycompantId(Integer id) {
+        return customerMapper.findByCompanyId(id);
     }
 
+
+    /**
+     * 更新公开客户
+     * @param customer
+     */
+    @Transactional
+    public void openUpdate(Customer customer) {
+        customer.setUserid(null);
+        customerMapper.updateCompany(customer);
+    }
+
+
+    /**
+     * 查询所有客户
+     * @return
+     */
+    public List<Customer> findAll() {
+        return customerMapper.findAll();
+    }
+
+
+    /**
+     * 转移客户
+     * @param customer
+     * @param userid
+     */
+    public void moveCustomer(Customer customer, Integer userid) {
+        customer.setUserid(userid);
+        customerMapper.updateCompany(customer);
+    }
 }
 
 

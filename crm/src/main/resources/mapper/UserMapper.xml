@@ -71,4 +71,8 @@
         where id=#{id}
     </update>
 
+    <select id="findAllUser" resultType="User">
+        select * from t_user
+    </select>
+
 </mapper>

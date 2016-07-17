@@ -32,5 +32,5 @@ public interface CustomerMapper {
 
     void updateCompany(Customer customer);
 
-    List<Customer> findCustomerBycompantId(Integer companyID);
+    List<Customer> findAll();
 }

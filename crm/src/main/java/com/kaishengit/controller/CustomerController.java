@@ -3,8 +3,13 @@ package com.kaishengit.controller;
 import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
 import com.kaishengit.dto.JsonResult;
+import com.kaishengit.exception.ForbiddenException;
+import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Customer;
+import com.kaishengit.pojo.User;
 import com.kaishengit.service.CustomerService;
+import com.kaishengit.service.UserService;
+import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +31,8 @@ import java.util.Map;
 public class CustomerController {
     @Inject
     private CustomerService customerService;
+    @Inject
+    private UserService userService;
 
     /**
      * 列表
@@ -140,6 +147,81 @@ public class CustomerController {
         return "success";
 
     }
+
+    /**
+     * 查看客户信息
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/customer/view/{id:\\d+}",method = RequestMethod.GET)
+    public String lookCustomer(@PathVariable Integer id,Model  model){
+        Customer customer=customerService.findCustomerById(id);
+        if(customer==null){
+            throw new NotFoundException();
+        }
+        if(customer.getUserid()!=null && !customer.getUserid().equals(ShiroUtil.getCurrentUserId()) && !ShiroUtil.isAdmin()){
+//            如果不是公共客户，不是本人的客户，不是管理员则禁止访问
+            throw new ForbiddenException();
+        }
+        //如果是公司把其成员传给信息列表
+        if(customer.getType().equals(Customer.CUSTOMER_TYPE_COMPANY)){
+            List<Customer> customerList=customerService.findCustomerBycompantId(customer.getId());
+            model.addAttribute("customerList",customerList);
+        }
+        model.addAttribute("customer",customer);
+
+
+        //下面这两句用于转移客户时候传入的人员
+        List<User> userList=userService.findAllUser();
+        model.addAttribute("userList",userList);
+
+        return "/customer/viewCustomer";
+    }
+
+
+    /**
+     * 公开客户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/customer/open/{id:\\d+}",method = RequestMethod.GET)
+    public String open(@PathVariable Integer id){
+       Customer customer=customerService.findCustomerById(id);
+        if(customer==null){
+            throw new NotFoundException();
+        }
+        if(customer.getUserid()!=null && !customer.getUserid().equals(ShiroUtil.getCurrentUserId()) && !ShiroUtil.isAdmin()){
+            throw new ForbiddenException();
+        }
+
+        customerService.openUpdate(customer);
+        return "redirect:/customer/view/"+id;
+    }
+
+    /**
+     * 转移客户
+     * @param id
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/customer/move/",method = RequestMethod.POST)
+    public String move(Integer id,Integer userid){
+        //都得先验证是否是自己
+        Customer customer=customerService.findCustomerById(id);
+        if(customer==null){
+            throw new NotFoundException();
+        }
+        if(customer.getUserid()!=null && !customer.getUserid().equals(ShiroUtil.getCurrentUserId()) && !ShiroUtil.isAdmin()){
+            throw new ForbiddenException();
+        }
+
+        customerService.moveCustomer(customer,userid);
+        return "redirect:/customer";
+    }
+
+
+
 
 
 }

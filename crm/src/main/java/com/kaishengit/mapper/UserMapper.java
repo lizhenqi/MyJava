@@ -28,4 +28,7 @@ public interface UserMapper  {
     void updateUserPwd(User user);
 
     void userEdit(User user);
+
+
+    List<User> findAllUser();
 }

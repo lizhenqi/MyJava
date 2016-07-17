@@ -163,4 +163,12 @@ public class UserService {
         userMapper.userEdit(user);
 
     }
+
+    /**
+     * 查询所有user
+     * @return
+     */
+    public List<User> findAllUser() {
+        return userMapper.findAllUser();
+    }
 }

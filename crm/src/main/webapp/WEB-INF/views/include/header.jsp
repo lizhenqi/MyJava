@@ -130,7 +130,7 @@
                     </a>
                     <%--下拉菜单--%>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/info">个人资料</a></li>
+                        <li><a href="#">个人资料</a></li>
                         <li><a href="/user/log">登录信息</a></li>
                         <li><a href="/user/password">修改密码</a></li>
                         <li role="separator" class="divider"></li>
