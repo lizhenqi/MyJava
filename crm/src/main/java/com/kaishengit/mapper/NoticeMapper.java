@@ -20,4 +20,6 @@ public interface NoticeMapper {
     Long findFilterCount(Map<String, Object> param);
 
     Notice findNoticeById(Integer id);
+
+    void del(Integer id);
 }

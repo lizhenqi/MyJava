@@ -133,5 +133,16 @@ public class NoticeController {
         return result;
     }
 
+    /**
+     * 删除公告
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/notice/del/{id:\\d+}",method = RequestMethod.GET)
+    @ResponseBody
+    public String del(@PathVariable Integer id){
+        noticeService.del(id);
+        return "success";
+    }
 
 }

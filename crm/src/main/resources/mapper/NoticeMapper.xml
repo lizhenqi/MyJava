@@ -42,6 +42,10 @@
         SELECT *from t_notice WHERE id=#{id}
     </select>
 
+    <delete id="del">
+        delete from t_notice where id=#{id}
+    </delete>
+
 
 
 </mapper>

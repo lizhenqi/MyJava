@@ -29,4 +29,8 @@ public interface CustomerMapper {
     List<Customer> findByCompanyId(Integer id);
 
     Customer findById(Integer id);
+
+    void updateCompany(Customer customer);
+
+    List<Customer> findCustomerBycompantId(Integer companyID);
 }

@@ -95,5 +95,13 @@ public class NoticeService {
 
         return "/preview/"+newFileName;
     }
+
+    /**
+     * 根据ID删除
+     * @param id
+     */
+    public void del(Integer id) {
+        noticeMapper.del(id);
+    }
 }
 

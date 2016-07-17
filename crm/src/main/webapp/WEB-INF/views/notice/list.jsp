@@ -73,6 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <th>标题</th>
                             <th>发布者</th>
                             <th>发布时间</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -111,6 +112,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {"data":function(row){
                     var time=moment(row.createtime);
                     return time.format("YYYY-MM-DD HH:mm")
+                }},
+                {"data": function(row){
+                    return "<a javascript:; class='del' rel='"+row.id+"'>删除</a>"
                 }}
             ],
 
@@ -136,7 +140,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
         });
 
-
+        $(document).delegate(".del","click",function(){
+            if(confirm("确认删除？")){
+                var id=$(this).attr("rel");
+                $.get("/notice/del/"+id).done(function(data){
+                    if(data=="success"){
+                        alert("删除成功！");
+                        dataTable.ajax.reload();
+                    }
+                }).fail(function(){
+                    alert("删除异常！");
+                });
+            }
+        })
     });
 </script>
 </body>

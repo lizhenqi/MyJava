@@ -98,6 +98,53 @@ public class CustomerService {
         //TODO 删除关联的项目
        //TODO 删除关联的代办事项
     }
+
+    /**
+     * 根据ID查询客户
+     * @param id
+     * @return
+     */
+    public Customer findCustomerById(Integer id) {
+        return customerMapper.findById(id);
+    }
+
+
+    /**
+     * 修改company
+     * @param customer
+     */
+    @Transactional
+    public void updateCompany(Customer customer) {
+
+        //如果为公司，找到关联客户并修改其关联公司名称
+        if(customer.getType().equals(Customer.CUSTOMER_TYPE_COMPANY)){
+            List<Customer> customerList=findCustomerBycompantId(customer.getCompanyID());
+            for(Customer msg:customerList){
+                msg.setCompanyID(customer.getCompanyID());
+                msg.setCompanyname(customer.getCompanyname());
+                customerMapper.updateCompany(msg);
+            }
+        }else{
+            //有可能个人没有关联公司
+            if(customer.getCompanyID()!=null){
+                Customer msg=findCustomerById(customer.getCompanyID());
+                customer.setCompanyname(msg.getName());
+            }
+        }
+
+        customer.setPinyin(Strings.toPinYin(customer.getName()));
+        customerMapper.updateCompany(customer);
+    }
+
+    /**
+     * 根据公companyID查询所有客户
+     * @param companyID
+     * @return
+     */
+    private List<Customer> findCustomerBycompantId(Integer companyID) {
+        return customerMapper.findCustomerBycompantId(companyID);
+    }
+
 }
 
 

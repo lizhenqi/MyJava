@@ -66,4 +66,13 @@
         UPDATE t_customer set companyID=#{companyID},companyname=#{companyname} where id=#{id}
     </update>
 
+    <update id="updateCompany">
+         UPDATE t_customer set name=#{name},tel=#{tel},address=#{address},
+         weixin=#{weixin},email=#{email},level=#{level},type=#{type},companyID=#{companyID},companyname=#{companyname} where id=#{id}
+    </update>
+
+    <select id="findCustomerBycompantId" resultType="com.kaishengit.pojo.Customer">
+        SELECT *from t_customer where id=#{companyID}
+    </select>
+
 </mapper>
