@@ -7,14 +7,13 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
+
         <div class="user-panel">
             <div class="pull-left image">
                 <img src="/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info" style="margin-top: 20px">
                 <p>别名：<shiro:principal property="username"/></p>
-                <%--<!-- Status -->--%>
-                <%--<a href="#"><i class="fa fa-circle text-success"></i>在线</a>--%>
             </div>
         </div>
 

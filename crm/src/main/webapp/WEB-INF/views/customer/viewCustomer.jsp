@@ -17,9 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/static/plugins/Font-Awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/static/dist/css/AdminLTE.css">
 
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
 
@@ -46,6 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="/customer" style="color: red"><i class="icon-arrow-left"></i>回到列表</a></li>
                 <li class="active">${customer.name}</li>
             </ol>
+
         </section>
 
         <!-- Main content -->
@@ -62,13 +62,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </c:otherwise>
                         </c:choose>
                         ${customer.name}
+
+                        <%--收缩按钮--%>
+                            <span class="box-tools ">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                            </span>
                     </h4>
+
+
+
                     <%--不是公开的才有公开选项--%>
                     <c:if test="${not empty customer.userid}">
+
                         <div class="box-tools">
                             <button class="btn btn-danger btn-xs" id="openBtn">公开改客户</button>
                             <button class="btn btn-danger btn-xs" id="moveBtn">转移改客户</button>
                         </div>
+
                     </c:if>
 
                 </div>
@@ -127,16 +137,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="box box-info">
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
                             <div class="box-title" ><i class="icon-th-list"></i>项目列表</div>
+                            <%--收缩框--%>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <h6>暂无项目</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="box box-info">
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
                             <div class="box-title" ><i class="icon-bell"></i>待办事项</div>
+                            <%--收缩框--%>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <h6>暂无项目</h6>
@@ -144,9 +162,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="box box-info">
+                    <div class="box box-info " >
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
                             <div class="box-title" ><i class=" icon-zoom-in"></i>生成电子名片</div>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                            </div>
                         </div>
                         <div class="box-body" style="text-align: center">
                             <img src="/customer/QRcode/${customer.id}.jpg">
@@ -154,6 +175,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </section>
 
