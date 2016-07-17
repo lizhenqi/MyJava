@@ -1,8 +1,13 @@
 package com.kaishengit.controller;
 
 import com.google.common.collect.Maps;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import com.kaishengit.dto.DataTablesResult;
-import com.kaishengit.dto.JsonResult;
 import com.kaishengit.exception.ForbiddenException;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Customer;
@@ -11,6 +16,7 @@ import com.kaishengit.service.CustomerService;
 import com.kaishengit.service.UserService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -220,6 +229,32 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    /**
+     * 把客户资料生成QRcode格式（二维码）
+     * @param id
+     * @param response
+     * @throws IOException
+     * @throws WriterException
+     */
+
+    @RequestMapping(value = "/customer/QRcode/{id:\\d+}.jpg",method = RequestMethod.GET)
+    public void makeQRcode(@PathVariable Integer id, HttpServletResponse response) throws IOException, WriterException {
+        String  msg=customerService.meCard(id);
+        Map<EncodeHintType,Object> encode=Maps.newHashMap();
+        encode.put(EncodeHintType.CHARACTER_SET,"UTF-8");
+
+        BitMatrix bitMatrix=new MultiFormatWriter().encode(msg, BarcodeFormat.QR_CODE,200,200,encode);
+
+        OutputStream outputStream=response.getOutputStream();
+        MatrixToImageWriter.writeToStream(bitMatrix,"jpg",outputStream);
+        //注意：输出的是流，直接img连接进视图了
+
+        outputStream.flush();
+        outputStream.close();
+
+
+
+    }
 
 
 

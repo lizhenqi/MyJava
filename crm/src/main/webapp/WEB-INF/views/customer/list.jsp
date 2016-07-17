@@ -73,28 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class="icon-th-list"></i>项目列表</div>
-                        </div>
-                        <div class="box-body">
-                            <h6>暂无项目</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class="icon-bell"></i>待办事项</div>
-                        </div>
-                        <div class="box-body">
-                            <h6>暂无项目</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </section>
     </div>
 </div>

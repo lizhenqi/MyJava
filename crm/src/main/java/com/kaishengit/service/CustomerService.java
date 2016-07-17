@@ -5,6 +5,7 @@ import com.kaishengit.mapper.CustomerMapper;
 import com.kaishengit.pojo.Customer;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -176,6 +177,37 @@ public class CustomerService {
         customer.setUserid(userid);
         customerMapper.updateCompany(customer);
     }
+
+
+    /**
+     * 将用户信息生成meCard形式以备生成二维码之用
+     * @param id
+     * @return
+     */
+    public String meCard(Integer id){
+        Customer customer=customerMapper.findById(id);
+        StringBuilder meCard=new StringBuilder("MECARD:");
+        if(StringUtils.isNotEmpty(customer.getName())){
+            meCard.append("N:"+customer.getName()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getTel())){
+            meCard.append("TEL:"+customer.getTel()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getAddress())){
+            meCard.append("ADR:"+customer.getAddress()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getEmail())){
+            meCard.append("EMAIL:"+customer.getEmail()+";");
+        }if(StringUtils.isNotEmpty(customer.getCompanyname())){
+            meCard.append("ORG:"+customer.getCompanyname()+";");
+        }
+        meCard.append(";");
+        return meCard.toString();
+    }
+
+
+
+
 }
 
 

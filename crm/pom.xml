@@ -177,6 +177,14 @@
             <version>2.5.1</version>
         </dependency>
 
+        <!-- 二维码生成zxing/javase -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+
 
     </dependencies>
 

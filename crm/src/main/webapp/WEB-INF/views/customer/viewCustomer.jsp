@@ -53,7 +53,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box box-primary">
                 <div class="box-header" style="text-align: center">
                     <h4 class="box-title">
-
                         <c:choose>
                             <c:when test="${customer.type=='person'}">
                                 <i class="icon-user"></i>
@@ -120,9 +119,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     </table>
                 </div>
+
             </div>
 
-
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box box-info">
+                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
+                            <div class="box-title" ><i class="icon-th-list"></i>项目列表</div>
+                        </div>
+                        <div class="box-body">
+                            <h6>暂无项目</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box box-info">
+                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
+                            <div class="box-title" ><i class="icon-bell"></i>待办事项</div>
+                        </div>
+                        <div class="box-body">
+                            <h6>暂无项目</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box box-info">
+                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
+                            <div class="box-title" ><i class=" icon-zoom-in"></i>生成电子名片</div>
+                        </div>
+                        <div class="box-body" style="text-align: center">
+                            <img src="/customer/QRcode/${customer.id}.jpg">
+                            <%--必须有后缀--%>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </div>
