@@ -26,7 +26,7 @@
             <shiro:hasAnyRoles name="管理员,经理,员工">
                 <li class="${param.menu=="home"?"active":''}"><a href="/home"><i class=" icon-eye-open"></i> <span>首页</span></a></li>
                 <li class="${param.menu=="notice"?"active":''}"><a href="/notice"><i class=" icon-volume-up"></i> <span>公告</span></a></li>
-                <li><a href="#"><i class=" icon-bookmark"></i> <span>项目管理</span></a></li>
+                <li class="${param.menu=="sales"?"active":''}"><a href="/sales"><i class=" icon-bookmark"></i> <span>销售机会</span></a></li>
                 <li class="${param.menu=="customer"?"active":''}"><a href="/customer"><i class=" icon-group"></i> <span href="/customer">客户管理</span></a></li>
                 <li><a href="#"><i class="icon-align-left"></i> <span>统计</span></a></li>
                 <li><a href="#"><i class=" icon-bell"></i> <span>代办事项</span></a></li>

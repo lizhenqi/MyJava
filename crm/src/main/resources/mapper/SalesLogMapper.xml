@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaishengit.mapper.SalesLogMapper">
+    <cache/>
+
+<insert id="save">
+    INSERT into t_sales_log(salesid,context,type)
+    VALUES (#{salesid},#{context},#{type})
+</insert>
+
+
+    <select id="findBySalesid" resultType="Sales_log">
+        select * from t_sales_log WHERE salesid=#{salesid} order by id desc
+    </select>
+
+</mapper>
