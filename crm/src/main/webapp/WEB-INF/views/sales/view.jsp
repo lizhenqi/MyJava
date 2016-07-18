@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
     <link rel="stylesheet" href="/static/plugins/datatables/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="/static/plugins/webuploader/webuploader.css">
-
+    <link rel="stylesheet" href="/static/plugins/simditor/styles/simditor.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -183,10 +183,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h4 class="modal-title" style="text-align: center;color: red">新增跟进记录</h4>
             </div>
             <div class="modal-body">
-                <form id="newLogForm">
+                <form id="newLogForm" action="/sales/log/new" method="post">
+                    <input type="hidden" name="salesid" value="${sales.id}">
                     <div class="form-group">
-                        <label>账号</label>
-                        <input class="form-control" type="text" name="username">
+                        <textarea name="context" id="context"></textarea>
                     </div>
                 </form>
             </div>
@@ -208,6 +208,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/plugins/moment/moment.js"></script>
 <script src="/static/plugins/webuploader/webuploader.min.js"></script>
 <script src="/static/plugins/validata/jquery.validate.min.js"></script>
+<script src="/static/plugins/timeago/timeago.js"></script>
+<script src="/static/plugins/timeago/timeago_zh_cn.js"></script>
+<script src="/static/plugins/simditor/scripts/module.min.js"></script>
+<script src="/static/plugins/simditor/scripts/hotkeys.min.js"></script>
+<script src="/static/plugins/simditor/scripts/uploader.min.js"></script>
+<script src="/static/plugins/simditor/scripts/simditor.min.js"></script>
+
+
+<script>
+    $(function(){
+
+        //相对时间
+        $(".timeago").timeago();
+
+
+        //在线编辑器
+        var edit = new Simditor({
+            textarea:$("#context"),
+            placeholder: '请新增跟进记录...',
+            toolbar:false
+        });
+
+//新增跟进记录
+        $("#newLogBtn").click(function(){
+            $("#newLogModal").modal({
+                show:true,
+                backdrop:'static',
+                keyboard:false
+            });
+        });
+//提交
+        $("#saveBtn").click(function(){
+            if(edit.getValue()) {
+                $("#newLogForm").submit();
+            } else {
+                edit.focus();
+            }
+        });
+
+
+    });
+
+
+</script>
+
 
 
 </body>

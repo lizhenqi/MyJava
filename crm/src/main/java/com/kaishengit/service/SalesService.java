@@ -8,6 +8,7 @@ import com.kaishengit.pojo.Sales;
 import com.kaishengit.pojo.Sales_file;
 import com.kaishengit.pojo.Sales_log;
 import com.kaishengit.util.ShiroUtil;
+import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -114,4 +115,18 @@ public class SalesService {
     }
 
 
+    /**
+     * 保存新的跟进日志
+     * @param salesLog
+     */
+    @Transactional
+    public void saveLog(Sales_log salesLog) {
+        salesLog.setType(Sales_log.LOG_TYPE_INPUT);
+        salesLogMapper.save(salesLog);
+
+        //增加最后跟进时间
+        Sales sales = salesMapper.findById(salesLog.getSalesid());
+        sales.setLasttime(DateTime.now().toString("yyyy-MM-dd"));
+        salesMapper.update(sales);
+    }
 }

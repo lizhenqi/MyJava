@@ -17,4 +17,6 @@ public interface SalesMapper {
     List<Sales> findParam(Map<String, Object> param);
 
     Long findFilterCount(Map<String, Object> param);
+
+    void update(Sales sales);
 }

@@ -108,12 +108,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 return;
 //               必须输入标题否则光标就一直定位在那。
             }
-
-            if (!$("#context").val()) {
-                $("#context").focus();
-                return;
-//               必须输入正文否则光标就一直定位在那。
-            }
             $("#newForm").submit();
         });
     });

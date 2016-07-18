@@ -87,7 +87,7 @@ public class SalesController {
 
 
     /**
-     * 新建机会
+     * 新建销售机会
      * @param sales
      * @return
      */
@@ -128,4 +128,17 @@ public class SalesController {
 
         return "sales/view";
     }
+
+    /**
+     * 新增跟进日志
+     * @param salesLog
+     * @return
+     */
+    @RequestMapping(value = "/sales/log/new",method = RequestMethod.POST)
+    public String saveLog(Sales_log salesLog) {
+        salesService.saveLog(salesLog);
+        return "redirect:/sales/view/"+salesLog.getSalesid();
+    }
+
+
 }
