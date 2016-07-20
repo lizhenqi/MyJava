@@ -205,9 +205,9 @@ public class SalesController {
 
       return ResponseEntity
               .ok()
-              .contentLength(file.length())
-              .contentType(MediaType.parseMediaType(salesFile.getContenttype()))
-              .header("Content-Disposition","attachment;filename="+name)
+              .contentLength(file.length())//假如有进度条下载时候会显示多大
+              .contentType(MediaType.parseMediaType(salesFile.getContenttype()))//可以让浏览器弹出另存为对话框
+              .header("Content-Disposition","attachment;filename="+name)//filename这个是固定的（默认表示就是文件的真名）
               .body(new InputStreamResource(fileInputStream));
     }
 
