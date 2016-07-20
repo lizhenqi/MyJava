@@ -86,7 +86,7 @@ public class DocumentService {
 
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
 //            为了让事务有效要抛出RuntimeException
         }
 

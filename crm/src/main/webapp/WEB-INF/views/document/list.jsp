@@ -53,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="box-tools">
                         <%--这个"box-tools"使其靠右边--%>
                         <button class="btn btn-xs btn-success " id="newDir"><i class=" icon-folder-open-alt"></i>新建文件夹</button>
-                        <span id="uploadBtn"><span class="text"><i class="icon-cloud-upload">上传文档</i></span></span>
+                        <span id="uploadBtn"><span class="text"><i class="icon-cloud-upload"></i>上传文档</span></span>
                     </div>
                 </div>
                 <div class="box-body">
@@ -188,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
 
         uploader.on('uploadComplete', function (file) {
-            $("#uploadBtn .text").html("<i class='icon-cloud-upload'>上传文档</i>");
+            $("#uploadBtn .text").html("<i class='icon-cloud-upload'></i>");
         });
 
 

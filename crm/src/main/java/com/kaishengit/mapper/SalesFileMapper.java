@@ -13,5 +13,7 @@ public interface SalesFileMapper {
 
     void delBySalesId(Integer salesid);
 
-    void save(Document document);
+    void save(Sales_file salesFile);
+
+    Sales_file findSalesFileById(Integer id);
 }

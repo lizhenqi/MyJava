@@ -139,7 +139,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="box box-info collapsed-box">
+                    <div class="box box-info ">
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
                             <div class="box-title" ><i class=" icon-zoom-in"></i>相关资料</div>
                             <%--收缩框--%>
@@ -149,6 +149,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                         </div>
                         <div class="box-body">
+                                <%--文档部分--%>
+                                <div class="box-body">
+                                    <table class="table" id="salesFileTable">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>名称</th>
+                                            <th>大小</th>
+                                            <th>机会ID</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${salesFiles}" var="file">
+                                            <tr>
+                                                <td>${file.id}</td>
+                                                <td><a href="/file/download/${file.id}">${file.name}</a></td>
+                                                <td>${file.size}</td>
+                                                <td>${file.salesid}</td>
+                                                <td><fmt:formatDate value="${file.createtime}"
+                                                 pattern="y-MM-dd HH:mm "></fmt:formatDate></td>
+                                            </tr>
+                                        </c:forEach>
+
+                                        </tbody>
+                                    </table>
+                            </div>
 
                         </div>
                     </div>
@@ -307,6 +334,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 });
             }
         });
+
+
+//        文件上传
+        var upload=WebUploader.create({
+            swf:"/static/plugins/webuploader/Upload.swf",
+            pick:"#uploadBtn",
+            server:"/sales/file/upload",
+            fileVal:"file",
+            formData:{'salesid':"${sales.id}"},
+            auto:true
+        });
+//        开始
+        upload.on("startUpload",function(){
+            $("#uploadBtn .text").html("<i class='icon-spinner icon-spin'>上传中...</i>");
+        });
+        upload.on("uploadSuccess",function(file,data){
+            if(data._raw=="success"){
+                window.history.go(0);
+            }
+        });
+        upload.on("uploadError",function(file){
+            alert("文件上传失败");
+        });
+        upload.on("uploadComplete",function(file){
+            $("#uploadBtn .text").html("<i class='icon-cloud-upload'>上传文档</i>");
+        })
+
+
+
+
+
 
 
     });

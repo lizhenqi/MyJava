@@ -13,6 +13,9 @@ import com.kaishengit.service.SalesService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +42,7 @@ public class SalesController {
     private CustomerService customerService;
 
     @Value("${imagePath}")
-    private String docSavePath;
+    private String savePath;
 
     /**
      * 显示列表
@@ -129,7 +132,7 @@ public class SalesController {
 
         //查找当前机会的文件列表
         List<Sales_file> salesFiles = salesService.findSalesFileBySalesId(id);
-        model.addAttribute(salesFiles);
+        model.addAttribute("salesFiles",salesFiles);
 
         return "sales/view";
     }
@@ -167,6 +170,47 @@ public class SalesController {
         salesService.delSalesById(id);
         return "success";
     }
+
+    /**
+     * 上传文件
+     * @param file
+     * @param salesid
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value ="/sales/file/upload",method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadSales(MultipartFile file,Integer salesid) throws IOException {
+        salesService.uploadFile(file.getInputStream(),file.getSize(),file.getOriginalFilename(),file.getContentType(),salesid);
+        return "success";
+    }
+
+    @RequestMapping(value = "/file/download/{id:\\d+}",method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> download(@PathVariable Integer id) throws FileNotFoundException, UnsupportedEncodingException {
+
+        Sales_file salesFile=salesService.findSalesFileById(id);
+        if(salesFile==null){
+            throw new NotFoundException();
+        }
+
+        File file=new File(savePath,salesFile.getFilename());
+        if(!file.exists()){
+            throw new NotFoundException();
+        }
+
+        FileInputStream fileInputStream=new FileInputStream(file);
+
+        String name=salesFile.getName();
+        name=new String(name.getBytes("UTF-8"),"ISO8859-1");
+
+      return ResponseEntity
+              .ok()
+              .contentLength(file.length())
+              .contentType(MediaType.parseMediaType(salesFile.getContenttype()))
+              .header("Content-Disposition","attachment;filename="+name)
+              .body(new InputStreamResource(fileInputStream));
+    }
+
 
 
 

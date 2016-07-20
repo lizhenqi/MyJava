@@ -10,13 +10,22 @@ public class Sales_file implements Serializable {
 
     private Integer id;
     private Integer salesid;
+    private String name;
     private String filename;
     private String contenttype;
     private Timestamp createtime;
-    private Long size;
+    private String size;
 
     public Integer getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(Integer id) {
@@ -55,11 +64,11 @@ public class Sales_file implements Serializable {
         this.createtime = createtime;
     }
 
-    public Long getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(String size) {
         this.size = size;
     }
 }

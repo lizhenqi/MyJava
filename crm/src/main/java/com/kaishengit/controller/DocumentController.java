@@ -86,7 +86,13 @@ public class DocumentController {
         return "success";
     }
 
-
+    /**
+     * 文件下载
+     * @param id
+     * @return
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
     @RequestMapping(value = "/doc/download/{id:\\d+}",method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> download(@PathVariable Integer id) throws FileNotFoundException, UnsupportedEncodingException {
        Document document= documentService.findDocumentById(id);
@@ -100,14 +106,14 @@ public class DocumentController {
 
         FileInputStream inputStream=new FileInputStream(file);
 
-        String fileName=document.getName();
-        fileName=new String(fileName.getBytes("UTF-8"),"ISO8859-1");
+        String name=document.getName();
+        name=new String(name.getBytes("UTF-8"),"ISO8859-1");
 
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.parseMediaType(document.getContexttype()))//可以让浏览器弹出另存为对话框
                 .contentLength(file.length())//假如有进度条下载时候会显示多大
-                .header("Content-Disposition","attachment;filename=\""+fileName+"\"")
+                .header("Content-Disposition","attachment;filename="+name)//filename这个是固定的（默认表示就是文件的真名）
                 .body(new InputStreamResource(inputStream));
 
 

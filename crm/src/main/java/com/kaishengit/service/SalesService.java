@@ -17,10 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,7 +37,7 @@ public class SalesService {
     private SalesFileMapper  salesFileMapper;
 
     @Value("${imagePath}")
-    private String docSavePath;
+    private String savePath;
 
     /**
      * 查询总机会数量
@@ -198,4 +195,56 @@ public class SalesService {
     }
 
 
+
+    /**
+     * 保存文件
+     * @param inputStream
+     * @param size
+     * @param originalFilename
+     * @param contentType
+     * @param salesid
+     */
+    public void uploadFile(InputStream inputStream, long size, String originalFilename, String contentType, Integer salesid) {
+//名字
+        String exName="";
+        if(originalFilename.lastIndexOf(".")!=-1){
+            exName=originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
+        String newName=UUID.randomUUID().toString()+ exName;
+//写入
+        try {
+            FileOutputStream outPutStream=new FileOutputStream(new File(savePath,newName));
+            try {
+                IOUtils.copy(inputStream,outPutStream);
+                outPutStream.flush();
+                outPutStream.close();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                //为了让事务有效要抛出RuntimeException
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        Sales_file salesFile=new Sales_file();
+        salesFile.setSalesid(salesid);
+        salesFile.setFilename(newName);
+        salesFile.setName(originalFilename);
+        salesFile.setContenttype(contentType);
+        salesFile.setSize(FileUtils.byteCountToDisplaySize(size));
+
+        salesFileMapper.save(salesFile);
+    }
+
+    /**
+     * 按id查询salesFiles
+     * @param id
+     * @return
+     */
+    public Sales_file findSalesFileById(Integer id) {
+        return salesFileMapper.findSalesFileById(id);
+    }
 }
