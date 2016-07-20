@@ -4,17 +4,26 @@ import com.google.common.collect.Maps;
 import com.kaishengit.mapper.SalesFileMapper;
 import com.kaishengit.mapper.SalesLogMapper;
 import com.kaishengit.mapper.SalesMapper;
+import com.kaishengit.pojo.Document;
 import com.kaishengit.pojo.Sales;
 import com.kaishengit.pojo.Sales_file;
 import com.kaishengit.pojo.Sales_log;
 import com.kaishengit.util.ShiroUtil;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2016/7/18.
@@ -29,6 +38,9 @@ public class SalesService {
     private SalesLogMapper salesLogMapper;
     @Inject
     private SalesFileMapper  salesFileMapper;
+
+    @Value("${imagePath}")
+    private String docSavePath;
 
     /**
      * 查询总机会数量
@@ -129,4 +141,61 @@ public class SalesService {
         sales.setLasttime(DateTime.now().toString("yyyy-MM-dd"));
         salesMapper.update(sales);
     }
+
+
+
+    /**
+     * 修改机会的进度
+     * @param id
+     * @param progress
+     */
+    @Transactional
+    public void editSalesProgress(Integer id, String progress) {
+        Sales sales = salesMapper.findById(id);
+        sales.setProgress(progress);
+
+        //修改最后跟进时间
+        sales.setLasttime(DateTime.now().toString("yyyy-MM-dd"));
+
+        //判断进度是否是『完成交易』
+        if("完成交易".equals(progress)) {
+            sales.setSuccesstime(DateTime.now().toString("yyyy-MM-dd"));
+        }
+        salesMapper.update(sales);
+
+        //添加跟进日志
+        Sales_log salesLog = new Sales_log();
+        salesLog.setType(Sales_log.LOG_TYPE_AUTO);
+        salesLog.setContext(ShiroUtil.getCurrentRealname()+ " 更改进度为：" + progress);
+        salesLog.setSalesid(sales.getId());
+        salesLogMapper.save(salesLog);
+    }
+
+    /**
+     * 通过customerid查询机会列表
+     * @param id
+     * @return
+     */
+    public List<Sales> findByCustomerid(Integer id) {
+        return salesMapper.findByCustomerid(id);
+    }
+
+    /**
+     * 通过id删除机会
+     * @param id
+     */
+    @Transactional
+    public void delSalesById(Integer id) {
+
+        //删除关联文件
+        salesFileMapper.delBySalesId(id);
+
+        //删除关联记录
+        salesLogMapper.delBySalesId(id);
+
+//它下面关联有文件和记录，删除它之前要先把其他两个删除否则，报异常删除不了
+        salesMapper.delSalesById(id);
+    }
+
+
 }

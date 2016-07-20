@@ -65,5 +65,12 @@
         where id = #{id}
     </update>
 
+    <select id="findByCustomerid" resultType="com.kaishengit.pojo.Sales">
+        select * from t_sales WHERE customerid=#{customerid};
+    </select>
+
+    <delete id="delSalesById">
+        DELETE from t_sales WHERE id=#{id}
+    </delete>
 
 </mapper>

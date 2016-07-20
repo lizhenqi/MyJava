@@ -12,15 +12,18 @@ import com.kaishengit.service.CustomerService;
 import com.kaishengit.service.SalesService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +38,8 @@ public class SalesController {
     @Inject
     private CustomerService customerService;
 
+    @Value("${imagePath}")
+    private String docSavePath;
 
     /**
      * 显示列表
@@ -139,6 +144,30 @@ public class SalesController {
         salesService.saveLog(salesLog);
         return "redirect:/sales/view/"+salesLog.getSalesid();
     }
+
+    /**
+     * 修改机会的进度
+     */
+    @RequestMapping(value = "/sales/progress/edit",method = RequestMethod.POST)
+    public String editProgress(Integer id,String progress) {
+
+        salesService.editSalesProgress(id,progress);
+        return "redirect:/sales/view/"+id;
+    }
+
+    /**
+     * 通过id删除机会
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/sales/del/{id:\\d+}",method = RequestMethod.GET)
+    @ResponseBody
+    public String del(@PathVariable Integer id){
+//        它下面关联有文件和记录，删除它之前要先把其他两个删除否则，报异常删除不了
+        salesService.delSalesById(id);
+        return "success";
+    }
+
 
 
 }

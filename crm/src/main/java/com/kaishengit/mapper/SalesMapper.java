@@ -19,4 +19,8 @@ public interface SalesMapper {
     Long findFilterCount(Map<String, Object> param);
 
     void update(Sales sales);
+
+    List<Sales> findByCustomerid(Integer customerid);
+
+    void delSalesById(Integer id);
 }

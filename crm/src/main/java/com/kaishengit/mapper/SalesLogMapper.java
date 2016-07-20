@@ -13,4 +13,6 @@ public interface SalesLogMapper {
 
 
     List<Sales_log> findBySalesid(Integer salesid);
+
+    void delBySalesId(Integer salesid);
 }

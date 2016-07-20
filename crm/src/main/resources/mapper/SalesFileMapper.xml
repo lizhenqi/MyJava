@@ -7,4 +7,13 @@
     select * from t_sales_file WHERE salesid=#{salesid};
 </select>
 
+    <delete id="delBySalesId">
+        DELETE from t_sales_file WHERE salesid=#{salesid}
+    </delete>
+
+    <insert id="save">
+        INSERT INTO t_sales_file(name, `size`,type, filename,salesid,contexttype)
+        VALUES (#{name},#{size},#{type},#{filename},#{contexttype})
+    </insert>
+
 </mapper>

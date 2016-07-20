@@ -1,5 +1,6 @@
 package com.kaishengit.mapper;
 
+import com.kaishengit.pojo.Document;
 import com.kaishengit.pojo.Sales_file;
 
 import java.util.List;
@@ -9,4 +10,8 @@ import java.util.List;
  */
 public interface SalesFileMapper {
     List<Sales_file> findBySalesId(Integer salesid);
+
+    void delBySalesId(Integer salesid);
+
+    void save(Document document);
 }

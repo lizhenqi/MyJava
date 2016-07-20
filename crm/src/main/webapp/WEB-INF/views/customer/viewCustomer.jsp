@@ -64,10 +64,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                         <%--收缩按钮--%>
                             <span class="box-tools ">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i>
+                                </button>
                             </span>
                     </h4>
-
 
 
                     <%--不是公开的才有公开选项--%>
@@ -118,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <c:if test="${not empty customerList}">
                             <tr>
                                 <th>公司成员列表:</th>
-                                <td >
+                                <td>
                                     <c:forEach items="${customerList}" var="msg">
                                         <a href="/customer/view/${msg.id}">${msg.name};</a>
                                     </c:forEach>
@@ -134,25 +134,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="row">
                 <div class="col-md-4">
                     <div class="box box-info">
-                        <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class="icon-th-list"></i>项目列表</div>
+                        <div class="box-header" style="text-align: center;color: mediumvioletred">
+                            <div class="box-title"><i class="icon-th-list"></i>项目列表</div>
                             <%--收缩框--%>
                             <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="box-body">
-                            <h6>暂无项目</h6>
+
+                            <table class="table">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>机会名称</th>
+                                    <th>价值</th>
+                                    <th>当前进度</th>
+                                </tr>
+                                <c:forEach items="${salesList}" var="sale">
+                                    <tr>
+                                        <th>${sale.id}</th>
+                                        <th><a href="/sales/view/${sale.id}">${sale.name}</a></th>
+                                        <th>￥${sale.price}</th>
+                                        <th>${sale.progress}</th>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="box box-info">
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class="icon-bell"></i>待办事项</div>
+                            <div class="box-title"><i class="icon-bell"></i>待办事项</div>
                             <%--收缩框--%>
                             <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -161,12 +181,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
                 <div class="col-md-3">
-				<%--collapsed-box加则是默认收缩状态--%>
-                    <div class="box box-info collapsed-box" >
+                    <%--collapsed-box加则是默认收缩状态--%>
+                    <div class="box box-info collapsed-box">
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class=" icon-zoom-in"></i>生成电子名片</div>
+                            <div class="box-title"><i class=" icon-zoom-in"></i>生成电子名片</div>
                             <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="box-body" style="text-align: center">
@@ -220,29 +241,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/dist/js/app.min.js"></script>
 
 <script>
-    $(function(){
+    $(function () {
 
-        $("#openBtn").click(function(){
-            if(confirm("确认公开？")){
-                var id=${customer.id};
-                window.location.href = "/customer/open/"+id;
+        $("#openBtn").click(function () {
+            if (confirm("确认公开？")) {
+                var id =${customer.id};
+                window.location.href = "/customer/open/" + id;
             }
         });
-        $("#moveBtn").click(function(){
-            if(confirm("确认转移？")){
-                var id=${customer.id};
+        $("#moveBtn").click(function () {
+            if (confirm("确认转移？")) {
+                var id =${customer.id};
 
                 $("#moveModal").modal({
-                    show:true,
-                    keyboard:false,
-                    backdrop:"static"
+                    show: true,
+                    keyboard: false,
+                    backdrop: "static"
                 });
             }
         });
         $("#editBtn").click(function () {
             $("#moveForm").submit();
         });
-
 
 
     });

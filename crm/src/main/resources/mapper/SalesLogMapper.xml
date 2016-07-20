@@ -13,4 +13,8 @@
         select * from t_sales_log WHERE salesid=#{salesid} order by id desc
     </select>
 
+    <delete id="delBySalesId">
+        DELETE from t_sales_log WHERE salesid=#{salesid}
+    </delete>
+
 </mapper>

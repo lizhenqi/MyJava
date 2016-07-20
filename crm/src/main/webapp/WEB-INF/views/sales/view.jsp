@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </span>
                     <shiro:hasRole name="管理员">
                         <div class="box-tools">
-                            <button class="Btn btn-danger">删除</button>
+                            <button class="Btn btn-danger" id="delSales">删除</button>
                         </div>
                     </shiro:hasRole>
                 </div>
@@ -141,14 +141,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-md-4">
                     <div class="box box-info collapsed-box">
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class="icon-bell"></i>相关资料</div>
+                            <div class="box-title" ><i class=" icon-zoom-in"></i>相关资料</div>
                             <%--收缩框--%>
-                            <div class="box-tools pull-right">
+                            <div class="box-tools pull-right" >
                                 <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
+                                <span class="btn-xs " id="uploadBtn"><span class="text"><i class="icon-cloud-upload">上传文档</i></span></span>
                             </div>
                         </div>
                         <div class="box-body">
-                            <h6>暂无项目</h6>
+
                         </div>
                     </div>
                 </div>
@@ -156,7 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <%--collapsed-box加则是默认收缩状态--%>
                     <div class="box box-info collapsed-box" >
                         <div class="box-header with-border" style="text-align: center;color: mediumvioletred">
-                            <div class="box-title" ><i class=" icon-zoom-in"></i>待办任务</div>
+                            <div class="box-title" ><i class="icon-bell"></i>待办任务</div>
                             <div class="box-tools pull-right">
                                 <button class="btn btn-box-tool" data-widget="collapse"><i class="icon-zoom-in"></i></button>
                             </div>
@@ -192,7 +193,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+                <button type="button" class="btn btn-primary" id="saveLogBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal(更改进度记录) -->
+<div class="modal fade" id="progressModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" style="text-align: center;color: red">修改进度</h4>
+            </div>
+            <div class="modal-body">
+                <form id="progressForm" action="/sales/progress/edit" method="post">
+                    <input type="hidden" name="id" value="${sales.id}">
+                    <div class="form-group">
+                        <label>当前进度</label>
+                        <select name="progress" class="form-control">
+                            <option value="初次接触">初次接触</option>
+                            <option value="确认意向">确认意向</option>
+                            <option value="提供合同">提供合同</option>
+                            <option value="完成交易">完成交易</option>
+                            <option value="交易搁置">交易搁置</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveProgressBtn">保存</button>
             </div>
         </div>
     </div>
@@ -239,11 +272,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
         });
 //提交
-        $("#saveBtn").click(function(){
+        $("#saveLogBtn").click(function(){
             if(edit.getValue()) {
                 $("#newLogForm").submit();
             } else {
                 edit.focus();
+            }
+        });
+
+        //修改进度
+        $("#editProgress").click(function(){
+            $("#progressModal").modal({
+                show:true,
+                backdrop:'static',
+                keyboard:false
+            });
+        });
+        $("#saveProgressBtn").click(function(){
+            $("#progressForm").submit();
+        });
+
+//        删除机会
+
+        $(document).delegate("#delSales","click",function(){
+            if(confirm("确认删除该机会？")){
+                var id=${sales.id};
+                $.get("/sales/del/"+id).done(function(data){
+                    if(data=="success"){
+                        alert("删除成功");
+                        window.location.href="/sales";
+                    }
+                }).fail(function(){
+                    alert("删除异常！")
+                });
             }
         });
 
@@ -252,8 +313,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 </script>
-
-
-
 </body>
 </html>
